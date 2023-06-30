@@ -1,0 +1,10 @@
+// app global css in SCSS form
+@font-face {
+  font-family: "Spacer Font";
+  src: url("../assets/font/spacer.ttf") format("truetype");
+}
+
+body {
+  background-color: black;
+  font-family: "Spacer Font", sans-serif;
+}
