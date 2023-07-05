@@ -1,7 +1,7 @@
 <template>
   <transition class="slower">
     <div class="wallpaperCard flex items-end justify-center">
-      <div class="text-h3 text-white">
+      <div class="text-h3 text-white text-center">
         {{ value }}
       </div>
       <q-btn
