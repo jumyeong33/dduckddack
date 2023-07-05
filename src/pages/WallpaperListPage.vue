@@ -109,9 +109,9 @@ const animateElement = () => {
 };
 
 const wallpapperList = [
-  { category: "face", value: "papper 1", number: 0 },
-  { category: "man", value: "papper 2", number: 1 },
-  { category: "woman", value: "papper 3", number: 2 },
+  { category: "face", value: "Testing", number: 0 },
+  { category: "man", value: "Testing icons2", number: 1 },
+  { category: "icons-1", value: "Original", number: 2 },
   { category: "wpp4", value: "papper 4", number: 3 },
 ];
 
@@ -208,6 +208,13 @@ const getBase64FromUrl = async (url) => {
 
 const downloadImage = async () => {
   const html = document.querySelector(".square");
+  const originalHeight = html.style.height;
+  const originalBorderStyle = html.style.borderStyle;
+  const originalBorderRadius = html.style.borderRadius;
+
+  html.style.borderStyle = "none";
+  html.style.borderRadius = "0";
+  html.style.height = "844px";
   const canvas = await html2canvas(html, {
     onclone: async (_, html) => {
       const images = html.querySelectorAll("img");
@@ -223,6 +230,10 @@ const downloadImage = async () => {
   link.href = base64;
   link.download = "square.png";
   link.click();
+
+  html.style.height = originalHeight;
+  html.style.borderStyle = originalBorderStyle;
+  html.style.borderRadius = originalBorderRadius;
 };
 </script>
 
