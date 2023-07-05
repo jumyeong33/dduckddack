@@ -2,22 +2,30 @@
   <div class="createSquare q-mr-xl">
     <div class="square" v-if="shouldRenderImages">
       <img
-        v-for="index in 6"
+        v-for="index in data.length[data.pattern][0]"
         :key="index"
         :src="getImageSource()[0]"
-        :id="data.pattern + `${index}`"
+        :id="'pattern' + data.pattern + -`${index}`"
       />
       <img
-        v-for="index in 6"
+        v-for="index in data.length[data.pattern][1]"
         :key="index"
         :src="getImageSource()[1]"
-        :id="data.pattern + `${index + 6}`"
+        :id="
+          'pattern' + data.pattern + -`${index + data.length[data.pattern][0]}`
+        "
       />
       <img
-        v-for="index in 3"
+        v-for="index in data.length[data.pattern][2]"
         :key="index"
         :src="getImageSource()[2]"
-        :id="data.pattern + `${index + 12}`"
+        :id="
+          'pattern' +
+          data.pattern +
+          -`${
+            index + data.length[data.pattern][0] + data.length[data.pattern][1]
+          }`
+        "
       />
     </div>
     <div class="square" v-else></div>
@@ -26,8 +34,17 @@
 
 <script setup>
 import { ref, watch, nextTick } from "vue";
+import { generateUniqueKey } from "../lib/keyGenerator";
+
 const data = ref({
   pattern: "",
+  backgroundNum: "",
+  length: {
+    1: [6, 6, 3],
+    2: [6, 7, 8],
+    3: [8, 13, 4],
+  },
+  uniqueKey: "",
 });
 const props = defineProps({
   data: Object,
@@ -41,6 +58,11 @@ watch(
       shouldRenderImages.value = true;
       getPatternSource();
       nextTick(randomBg);
+      data.value.uniqueKey = generateUniqueKey(
+        newSelectedIcons,
+        data.value.backgroundNum,
+        data.value.pattern
+      );
     } else shouldRenderImages.value = false;
   }
 );
@@ -50,8 +72,7 @@ function getImageSource() {
 }
 
 function getPatternSource() {
-  const randomNumber = Math.floor(Math.random() * 3) + 1;
-  data.value.pattern = `pattern${randomNumber}-`;
+  data.value.pattern = Math.floor(Math.random() * 3) + 1;
 }
 
 function randomBg() {
@@ -63,8 +84,8 @@ function randomBg() {
     "black",
   ];
   const randomNumber = Math.floor(Math.random() * 5);
+  data.value.backgroundNum = randomNumber;
   const el = document.querySelector(".square");
-  console.log(el);
   el.style.background = bg[randomNumber];
 }
 </script>
@@ -95,7 +116,7 @@ img {
   left: 84px;
   width: 120px;
   height: 120px;
-  transform: rotate(90deg);
+  transform: rotate(15deg);
 }
 #pattern1-2 {
   top: 385px;
@@ -182,5 +203,322 @@ img {
   width: 120px;
   height: 120px;
   transform: rotate(-17.14deg);
+}
+
+#pattern2-1 {
+  top: -119px;
+  left: 32px;
+  width: 153px;
+  height: 151px;
+}
+#pattern2-2 {
+  top: -73px;
+  left: 250px;
+  width: 115px;
+  height: 114px;
+  transform: rotate(20.74deg);
+}
+#pattern2-3 {
+  top: 177px;
+  left: 20px;
+  width: 145px;
+  height: 143px;
+  transform: rotate(-15deg);
+}
+#pattern2-4 {
+  top: 430px;
+  left: 197px;
+  width: 115px;
+  height: 114px;
+  transform: rotate(16.6deg);
+}
+#pattern2-5 {
+  top: 722px;
+  left: 32px;
+  width: 153px;
+  height: 151px;
+}
+#pattern2-6 {
+  top: 767px;
+  left: 250px;
+  width: 115px;
+  height: 114px;
+  transform: rotate(20.74deg);
+}
+
+#pattern2-7 {
+  top: 72px;
+  left: -88px;
+  width: 114px;
+  height: 114px;
+  transform: rotate(23.37deg);
+}
+#pattern2-8 {
+  top: 72px;
+  left: 301px;
+  width: 114px;
+  height: 114px;
+  transform: rotate(23.37deg);
+}
+#pattern2-9 {
+  top: 385px;
+  left: -56px;
+  width: 115px;
+  height: 115px;
+}
+#pattern2-10 {
+  top: 385px;
+  left: 333px;
+  width: 115px;
+  height: 115px;
+}
+#pattern2-11 {
+  top: 712px;
+  left: -53px;
+  width: 86px;
+  height: 86px;
+}
+#pattern2-12 {
+  top: 712px;
+  left: 339px;
+  width: 86px;
+  height: 86px;
+}
+#pattern2-13 {
+  top: 610px;
+  left: 50px;
+  width: 86px;
+  height: 86px;
+  transform: rotate(-11.67deg);
+}
+#pattern2-14 {
+  top: 61px;
+  left: 115px;
+  width: 86px;
+  height: 86px;
+  transform: rotate(5.15deg);
+}
+#pattern2-15 {
+  top: 154px;
+  left: 219px;
+  width: 55px;
+  height: 55px;
+  transform: rotate(5.15deg);
+}
+#pattern2-16 {
+  top: 246px;
+  left: 228px;
+  width: 126px;
+  height: 126px;
+  transform: rotate(5.15deg);
+}
+#pattern2-17 {
+  top: 472px;
+  left: 69px;
+  width: 95px;
+  height: 95px;
+  transform: rotate(-33.78deg);
+}
+#pattern2-18 {
+  top: 368px;
+  left: 137px;
+  width: 53px;
+  height: 53px;
+  transform: rotate(-33.78deg);
+}
+#pattern2-19 {
+  top: 556px;
+  left: -29px;
+  width: 58px;
+  height: 58px;
+}
+#pattern2-20 {
+  top: 556px;
+  left: 360px;
+  width: 58px;
+  height: 58px;
+}
+#pattern2-21 {
+  top: 618px;
+  left: 177px;
+  width: 124px;
+  height: 124px;
+  transform: rotate(-16.4deg);
+}
+
+#pattern3-1 {
+  top: -54px;
+  left: -72px;
+  width: 111.5px;
+  height: 111.5px;
+  transform: rotate(-15deg);
+}
+#pattern3-2 {
+  top: -54px;
+  left: 316px;
+  width: 111.5px;
+  height: 111.5px;
+  transform: rotate(-15deg);
+}
+#pattern3-3 {
+  top: 38px;
+  left: 37px;
+  width: 83px;
+  height: 83px;
+  transform: rotate(25.18deg);
+}
+#pattern3-4 {
+  top: 230px;
+  left: 229px;
+  width: 114px;
+  height: 114px;
+}
+#pattern3-5 {
+  top: 344px;
+  left: 9px;
+  width: 162px;
+  height: 162px;
+  transform: rotate(-15deg);
+}
+#pattern3-6 {
+  top: 620px;
+  left: 89px;
+  width: 152px;
+  height: 152px;
+}
+#pattern3-7 {
+  top: 787px;
+  left: -72px;
+  width: 111.5px;
+  height: 111.5px;
+}
+#pattern3-8 {
+  top: 787px;
+  left: 316px;
+  width: 111.5px;
+  height: 111.5px;
+}
+
+#pattern3-9 {
+  top: -66px;
+  left: 110px;
+  width: 108.75px;
+  height: 109.75px;
+  transform: rotate(-15deg);
+}
+#pattern3-10 {
+  top: 46px;
+  left: 196px;
+  width: 144px;
+  height: 145px;
+  transform: rotate(15deg);
+}
+#pattern3-11 {
+  top: 168px;
+  left: -39px;
+  width: 85px;
+  height: 85px;
+  transform: rotate(15deg);
+}
+#pattern3-12 {
+  top: 168px;
+  left: 350px;
+  width: 85px;
+  height: 85px;
+  transform: rotate(15deg);
+}
+#pattern3-13 {
+  top: 258px;
+  left: 80px;
+  width: 80px;
+  height: 80px;
+  transform: rotate(-16.65deg);
+}
+#pattern3-14 {
+  top: 341px;
+  left: -45px;
+  width: 76px;
+  height: 76px;
+}
+#pattern3-15 {
+  top: 341px;
+  left: 344px;
+  width: 76px;
+  height: 76px;
+}
+
+#pattern3-16 {
+  top: 482px;
+  left: 292px;
+  width: 52px;
+  height: 53px;
+  transform: rotate(22.16deg);
+}
+#pattern3-17 {
+  top: 512px;
+  left: 161px;
+  width: 95.5px;
+  height: 96.5px;
+  transform: rotate(-18.06deg);
+}
+#pattern3-18 {
+  top: 655px;
+  left: 271px;
+  width: 80px;
+  height: 80px;
+  transform: rotate(8.34deg);
+}
+
+#pattern3-19 {
+  top: 711px;
+  left: -35px;
+  width: 76px;
+  height: 76px;
+  transform: rotate(-21.65deg);
+}
+#pattern3-20 {
+  top: 711px;
+  left: 354px;
+  width: 76px;
+  height: 76px;
+  transform: rotate(-21.65deg);
+}
+
+#pattern3-21 {
+  top: 775px;
+  left: 110px;
+  width: 108.75px;
+  height: 109.75px;
+  transform: rotate(-15deg);
+}
+#pattern3-22 {
+  top: 130px;
+  left: 110px;
+  width: 94px;
+  height: 94px;
+  transform: rotate(-10.26deg);
+}
+
+#pattern3-23 {
+  top: 359px;
+  left: 222px;
+  width: 74px;
+  height: 74px;
+  transform: rotate(15deg);
+}
+
+#pattern3-24 {
+  top: 527.5px;
+  left: -39px;
+  width: 114px;
+  height: 114px;
+  transform: rotate(15deg);
+}
+#pattern3-25 {
+  top: 527.5px;
+  left: 350px;
+  width: 114px;
+  height: 114px;
+  transform: rotate(15deg);
 }
 </style>
