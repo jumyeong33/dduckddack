@@ -7,7 +7,7 @@
     >
       <div
         class="icons row justify-start q-col-gutter-sm"
-        style="margin-left: 1rem"
+        style="margin-left: 1rem; margin-top: 1rem"
       >
         <q-intersection
           v-for="(icon, index) in iconData.icons"
@@ -15,7 +15,7 @@
           transition="scale"
           once
         >
-          <img :src="icon" style="width: 92px; height: 92px" />
+          <img :src="icon" style="width: 96px; height: 96px" />
         </q-intersection>
       </div>
     </q-scroll-area>

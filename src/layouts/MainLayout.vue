@@ -4,11 +4,10 @@
       <q-toolbar class="bg-black text-primary row items-center my-tool">
         <div class="row items-center">
           <div class="row items-center col logo">
-            <img src="~assets/dddd2.png" style="width: 25px; height: 26.64px" />
-            <q-btn class="logo-child" flat label="DDUCAKDDACK" />
+            <img src="~assets/logo.png" style="width: 200px; height: 26.64px" />
           </div>
 
-          <q-tabs shrink narrow-indicator>
+          <q-tabs shrink narrow-indicator style="margin-bottom: 8px">
             <q-route-tab name="home" label="Home" to="/" exact />
             <q-route-tab name="create" label="Create" to="/create" exact />
           </q-tabs>
@@ -34,7 +33,7 @@
 }
 
 .btn-connect {
-  width: 337px;
+  width: 257px;
   height: 48px;
   font-size: 24px;
   background: rgba(255, 255, 255, 0.7);
@@ -51,6 +50,7 @@
   line-height: 29px;
   margin-left: 12px;
 }
+
 .logo {
   padding-right: 30px;
 }
@@ -70,5 +70,8 @@
   padding-top: 31px;
   padding-left: 100px;
   padding-right: 100px;
+}
+::v-deep .q-btn__content {
+  padding-bottom: 5px;
 }
 </style>
