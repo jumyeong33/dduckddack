@@ -109,10 +109,10 @@ const animateElement = () => {
 };
 
 const wallpapperList = [
-  { category: "face", value: "Testing", number: 0 },
-  { category: "man", value: "Testing icons2", number: 1 },
-  { category: "icons-1", value: "Original", number: 2 },
-  { category: "wpp4", value: "papper 4", number: 3 },
+  { category: "face", value: "/src/assets/loading.png", number: 0 },
+  { category: "man", value: "/src/assets/wall_back.png", number: 1 },
+  { category: "icons-1", value: "/src/assets/wall_back.png", number: 2 },
+  { category: "wpp4", value: "/src/assets/loading.png", number: 3 },
 ];
 
 const dataWallpaperList = () => {
@@ -208,14 +208,25 @@ const getBase64FromUrl = async (url) => {
 
 const downloadImage = async () => {
   const html = document.querySelector(".square");
-  const originalHeight = html.style.height;
-  const originalBorderStyle = html.style.borderStyle;
-  const originalBorderRadius = html.style.borderRadius;
+  const container = document.createElement("div");
 
-  html.style.borderStyle = "none";
-  html.style.borderRadius = "0";
-  html.style.height = "844px";
-  const canvas = await html2canvas(html, {
+  // Copy the attributes and styles from html to container
+  const computedStyles = getComputedStyle(html);
+  for (const prop of computedStyles) {
+    container.style[prop] = computedStyles[prop];
+  }
+  container.style.position = "fixed";
+  container.style.top = "-9999px";
+  container.style.left = "-9999px";
+  container.innerHTML = html.innerHTML;
+  container.className = html.className;
+  container.id = html.id;
+  container.style.height = "844px";
+  container.style.borderRadius = 0;
+  container.style.borderStyle = "none";
+  document.body.appendChild(container);
+
+  const canvas = await html2canvas(container, {
     onclone: async (_, html) => {
       const images = html.querySelectorAll("img");
       for await (const img of images) {
@@ -230,10 +241,6 @@ const downloadImage = async () => {
   link.href = base64;
   link.download = "square.png";
   link.click();
-
-  html.style.height = originalHeight;
-  html.style.borderStyle = originalBorderStyle;
-  html.style.borderRadius = originalBorderRadius;
 };
 </script>
 
@@ -270,5 +277,11 @@ const downloadImage = async () => {
 }
 .btns {
   padding-top: 44px;
+}
+
+.modify-bg {
+  border-style: none;
+  border-radius: 0;
+  height: 844px;
 }
 </style>
