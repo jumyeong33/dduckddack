@@ -42,7 +42,7 @@ const data = ref({
   length: {
     1: [6, 6, 3],
     2: [6, 7, 8],
-    3: [8, 13, 4],
+    3: [8, 11, 4],
   },
   uniqueKey: "",
 });
@@ -376,8 +376,8 @@ img {
 #pattern3-5 {
   top: 344px;
   left: 9px;
-  width: 162px;
-  height: 162px;
+  width: 128.7px;
+  height: 128.7px;
   transform: rotate(-15deg);
 }
 #pattern3-6 {
@@ -409,8 +409,8 @@ img {
 #pattern3-10 {
   top: 46px;
   left: 196px;
-  width: 144px;
-  height: 145px;
+  width: 92px;
+  height: 93px;
   transform: rotate(15deg);
 }
 #pattern3-11 {
@@ -435,48 +435,35 @@ img {
   transform: rotate(-16.65deg);
 }
 #pattern3-14 {
-  top: 341px;
-  left: -45px;
-  width: 76px;
-  height: 76px;
-}
-#pattern3-15 {
-  top: 341px;
-  left: 344px;
-  width: 76px;
-  height: 76px;
-}
-
-#pattern3-16 {
   top: 482px;
   left: 292px;
   width: 52px;
   height: 53px;
   transform: rotate(22.16deg);
 }
-#pattern3-17 {
+#pattern3-15 {
   top: 512px;
   left: 161px;
   width: 95.5px;
   height: 96.5px;
   transform: rotate(-18.06deg);
 }
-#pattern3-18 {
+
+#pattern3-16 {
   top: 655px;
   left: 271px;
   width: 80px;
   height: 80px;
   transform: rotate(8.34deg);
 }
-
-#pattern3-19 {
+#pattern3-17 {
   top: 711px;
   left: -35px;
   width: 76px;
   height: 76px;
   transform: rotate(-21.65deg);
 }
-#pattern3-20 {
+#pattern3-18 {
   top: 711px;
   left: 354px;
   width: 76px;
@@ -484,14 +471,14 @@ img {
   transform: rotate(-21.65deg);
 }
 
-#pattern3-21 {
+#pattern3-19 {
   top: 775px;
   left: 110px;
   width: 108.75px;
   height: 109.75px;
   transform: rotate(-15deg);
 }
-#pattern3-22 {
+#pattern3-20 {
   top: 130px;
   left: 110px;
   width: 94px;
@@ -499,22 +486,22 @@ img {
   transform: rotate(-10.26deg);
 }
 
-#pattern3-23 {
+#pattern3-21 {
   top: 359px;
   left: 222px;
   width: 74px;
   height: 74px;
   transform: rotate(15deg);
 }
-
-#pattern3-24 {
+#pattern3-22 {
   top: 527.5px;
   left: -39px;
   width: 114px;
   height: 114px;
   transform: rotate(15deg);
 }
-#pattern3-25 {
+
+#pattern3-23 {
   top: 527.5px;
   left: 350px;
   width: 114px;
