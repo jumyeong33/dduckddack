@@ -14,7 +14,7 @@
         </div>
 
         <q-space />
-        <q-btn class="btn-connect text-white" padding="none">
+        <q-btn class="btn-connect text-white" padding="none" @click="connect">
           connect wallet</q-btn
         >
       </q-toolbar>
@@ -25,7 +25,45 @@
   </q-layout>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, watch } from "vue";
+import { connectWallet, checkNetwork } from "../lib/wallet/connectHandler";
+
+const data = ref({
+  isConnected: false,
+  walletAddress: "",
+});
+
+watch(
+  () => data.value.isConnected,
+  (newValue) => {
+    if (newValue) {
+      checkNetwork();
+      trackAccount(data.value.walletAddress);
+    }
+  }
+);
+
+async function connect() {
+  const account = await connectWallet();
+  if (account) {
+    data.value.isConnected = true;
+    data.value.walletAddress = account;
+  }
+}
+
+function trackAccount(account) {
+  window.ethereum.on("accountsChanged", async (accounts) => {
+    if (accounts.length === 0) {
+      // MetaMask is locked or the user has not connected any accounts.
+      data.value.isConnected = false;
+      data.value.walletAddress = "";
+    } else if (accounts[0] !== account) {
+      data.value.walletAddress = accounts[0];
+    }
+  });
+}
+</script>
 
 <style lang="scss" scoped>
 .text-primary {
