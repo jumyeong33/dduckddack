@@ -85,7 +85,7 @@ import ListIcon from "src/components/ListIcon.vue";
 import SelectedIcon from "src/components/SelectedIcon.vue";
 import s3Client from "@api/callS3";
 import html2canvas from "html2canvas";
-
+import { Buffer } from "buffer";
 import { ref } from "vue";
 
 const data = ref({
@@ -96,8 +96,6 @@ const iconData = ref({
   category: "",
   icons: [],
 });
-
-const emit = defineEmits(["setCategoryRouterView"]);
 
 const animateElement = () => {
   data.value.animated = true;
@@ -237,10 +235,38 @@ const downloadImage = async () => {
   });
 
   const base64 = canvas.toDataURL("image/png");
-  const link = document.createElement("a");
-  link.href = base64;
-  link.download = "square.png";
-  link.click();
+  const imageBuffer = Buffer.from(
+    base64.replace(/^data:image\/\w+;base64,/, ""),
+    "base64"
+  );
+  try {
+    console.log(imageBuffer);
+    // This mehtod has problem to attache file to lambda function check this out!
+    const response = await fetch(
+      "https://mv19zvsl5i.execute-api.ap-northeast-2.amazonaws.com/default/MyTestFunction",
+      {
+        method: "POST",
+        body: imageBuffer,
+        headers: {
+          "Content-Type": "application/octet-stream", // Set the content type to binary
+        },
+      }
+    );
+    if (response.ok) {
+      const lambdaResponse = await response.json();
+      console.log("Lambda Response:", lambdaResponse);
+    } else {
+      console.error("Error sending data to Lambda:", response.statusText);
+    }
+  } catch (e) {
+    console.log("실패");
+    console.log(e);
+  }
+
+  // const link = document.createElement("a");
+  // link.href = base64;
+  // link.download = "square.png";
+  // link.click();
 };
 </script>
 
