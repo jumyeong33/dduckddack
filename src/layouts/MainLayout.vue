@@ -14,9 +14,28 @@
         </div>
 
         <q-space />
-        <q-btn class="btn-connect text-white" padding="none" @click="connect">
-          connect wallet</q-btn
+        <q-btn class="connected" v-if="data.isConnected">
+          {{ shortenWalletAddress(walletAddress) }}
+          <q-menu transition-show="scale" transition-hide="scale">
+            <q-list style="min-width: 100px">
+              <q-item clickable v-close-popup>
+                <q-item-section>My page</q-item-section>
+              </q-item>
+              <q-separator />
+              <q-item clickable v-close-popup @click="disconnect">
+                <q-item-section>disconnect</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-btn>
+        <q-btn
+          class="btn-connect text-white"
+          padding="none"
+          @click="connect"
+          v-else
         >
+          Connect Wallet
+        </q-btn>
       </q-toolbar>
     </q-header>
     <q-page-container>
@@ -26,9 +45,9 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import { connectWallet, checkNetwork } from "../lib/wallet/connectHandler";
-
+import { ref, watch, onMounted } from "vue";
+import { connectWallet } from "../lib/wallet/connectHandler";
+import { SessionStorage } from "quasar";
 const data = ref({
   isConnected: false,
   walletAddress: "",
@@ -38,11 +57,26 @@ watch(
   () => data.value.isConnected,
   (newValue) => {
     if (newValue) {
-      checkNetwork();
       trackAccount(data.value.walletAddress);
     }
   }
 );
+
+onMounted(() => {
+  const storedAddress = SessionStorage.getItem("wallet");
+  if (storedAddress) {
+    data.value.isConnected = true;
+    data.value.walletAddress = storedAddress;
+  }
+});
+
+function shortenWalletAddress() {
+  const address = data.value.walletAddress;
+  if (!address.length > 0) {
+    return;
+  }
+  return address.slice(0, 4) + "..." + address.slice(-4);
+}
 
 async function connect() {
   const account = await connectWallet();
@@ -50,6 +84,11 @@ async function connect() {
     data.value.isConnected = true;
     data.value.walletAddress = account;
   }
+}
+function disconnect() {
+  SessionStorage.clear();
+  data.value.isConnected = false;
+  data.value.walletAddress = "";
 }
 
 function trackAccount(account) {
@@ -111,5 +150,10 @@ function trackAccount(account) {
 }
 ::v-deep .q-btn__content {
   padding-bottom: 5px;
+}
+
+.connected {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 15px;
 }
 </style>

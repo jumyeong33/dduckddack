@@ -1,4 +1,5 @@
 import showNotify from "src/utils/notify";
+import { SessionStorage } from "quasar";
 
 function errorMsgHandler(e, state) {
     if(e.code === 4001) throw showNotify(state);
@@ -25,7 +26,7 @@ async function signData(account) {
     }
 }
 
-export async function checkNetwork() {
+async function checkNetwork() {
     try {
         const chainId = await window.ethereum.request({ method: 'eth_chainId' });
         if(parseInt(chainId) !== 137 || parseInt(chainId) !== 80001) {
@@ -42,8 +43,10 @@ export async function checkNetwork() {
 export async function connectWallet() {
     try {
         if(isInstallMetamask()) showNotify('install');
+        await checkNetwork()
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         await signData(accounts[0]);
+        SessionStorage.set('wallet', accounts[0])
         return accounts[0];
     } catch {
         return false;

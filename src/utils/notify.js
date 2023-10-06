@@ -9,12 +9,18 @@ const alretMapping = {
     error: {message : "Something went wrong.. Try again!", position: 'center'},
     success: {message : "CREATEAD!", position: 'center'},
     loading: {message : "LOADING..", position: 'center'},
-    rejectSign: {message : "Rejected Sign to DDUCKDDACK.. Please sign again", position: 'top-right', color: 'yellow'},
-    rejectSwitchChain: {
-        message : "We Only support Polygon Chain Currently.. Please switch network",
+    rejectSign: {
+        message : "Please connect again",
+        caption: 'Rejected Sign to DDUCKDDACK..',
         position: 'top-right',
-        color: 'yellow',
-        timeout: 50000,
+        color: 'yellow'
+    },
+    rejectSwitchChain: {
+        message : 'Please switch network',
+        caption: 'We Only support Polygon Chain Currently..',
+        position: 'top-right',
+        color: 'primary',
+        icon: 'announcement',
         actions: [{ icon: 'close', round: true, color: 'black', }],
     }
 };
