@@ -33,6 +33,6 @@ defineProps({
   height: 134px;
   border: 3px solid $primary;
   border-radius: 20px;
-  background-color: white;
+  background-color: black;
 }
 </style>

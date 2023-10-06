@@ -95,7 +95,7 @@ function randomBg() {
   border: 3px solid $primary;
   height: 675px;
   width: 392px;
-  background: yellow;
+  background: black;
   border-radius: 20px;
   position: relative;
   overflow: hidden;

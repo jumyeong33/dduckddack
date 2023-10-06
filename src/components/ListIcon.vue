@@ -43,6 +43,6 @@ const thumbStyle = {
   margin-top: 18px;
   border: 3px solid $primary;
   border-radius: 20px;
-  background-color: azure;
+  background-color: black;
 }
 </style>
