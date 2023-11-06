@@ -46,7 +46,7 @@
       v-show="iconData.category"
       :style="{ display: iconData.category ? 'block' : 'none' }"
     >
-      <WallpaperCard v-bind="{ data }" />
+      <WallpaperCard v-bind="{ data }" @setMetadata="handleMetadata"/>
 
       <div class="listSqaure q-ml-xl">
         <SelectedIcon v-bind="{ data }" />
@@ -87,7 +87,7 @@ import s3Client from "@api/callS3";
 import html2canvas from "html2canvas";
 import { Buffer } from "buffer";
 import { ref } from "vue";
-
+import { generateMetadata, generateUniqueKey } from "src/lib/generator";
 const data = ref({
   animated: false,
   selectedIcons: [],
@@ -97,6 +97,7 @@ const iconData = ref({
   icons: [],
 });
 
+const metadata = ref({})
 const animateElement = () => {
   data.value.animated = true;
 
@@ -152,6 +153,10 @@ const handleCategory = async (emitValue) => {
   await showListA(emitValue);
 };
 
+const handleMetadata = (emitValue) => {
+  metadata.value = emitValue;
+}
+
 const showListA = async (category) => {
   const icons = await s3Client.getListOfBucket(category);
 
@@ -167,6 +172,7 @@ const initIconData = () => {
   iconData.value.category = "";
   iconData.value.icons = [];
   data.value.selectedIcons = [];
+  metadata.value = {};
 };
 
 const createRandomWallpapper = () => {
@@ -239,16 +245,23 @@ const downloadImage = async () => {
     base64.replace(/^data:image\/\w+;base64,/, ""),
     "base64"
   );
+  const uniqueKey = generateUniqueKey(data.value.selectedIcons, metadata.value.backgroundNum, metadata.value.pattern)
+  const tempMetadata = generateMetadata(data.value.selectedIcons, metadata.value.backgroundNum, metadata.value.pattern, uniqueKey)
+
+  const dataToSend = {
+  image: imageBuffer.toString('base64'),
+  data: tempMetadata,
+};
+  // Create NFT metadata to IPFS using Lambda function
   try {
-    console.log(imageBuffer);
     // This mehtod has problem to attache file to lambda function check this out!
     const response = await fetch(
       "https://mv19zvsl5i.execute-api.ap-northeast-2.amazonaws.com/default/MyTestFunction",
       {
         method: "POST",
-        body: imageBuffer,
+        body: JSON.stringify(dataToSend),
         headers: {
-          "Content-Type": "application/octet-stream", // Set the content type to binary
+            "Content-Type": "application/json", // Set the content type to JSON
         },
       }
     );
@@ -263,6 +276,7 @@ const downloadImage = async () => {
     console.log(e);
   }
 
+  // Download Wallppaper image
   // const link = document.createElement("a");
   // link.href = base64;
   // link.download = "square.png";

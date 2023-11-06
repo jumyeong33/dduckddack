@@ -34,7 +34,6 @@
 
 <script setup>
 import { ref, watch, nextTick } from "vue";
-import { generateUniqueKey } from "../lib/keyGenerator";
 
 const data = ref({
   pattern: "",
@@ -44,11 +43,14 @@ const data = ref({
     2: [6, 7, 8],
     3: [8, 11, 4],
   },
-  uniqueKey: "",
 });
 const props = defineProps({
   data: Object,
 });
+const emit = defineEmits(["setMetadata"])
+const emitMetadata = (value) => {
+  emit("setMetadata", value);
+};
 const shouldRenderImages = ref(false);
 
 watch(
@@ -58,11 +60,7 @@ watch(
       shouldRenderImages.value = true;
       getPatternSource();
       nextTick(randomBg);
-      data.value.uniqueKey = generateUniqueKey(
-        newSelectedIcons,
-        data.value.backgroundNum,
-        data.value.pattern
-      );
+      emitMetadata(data.value);
     } else shouldRenderImages.value = false;
   }
 );
