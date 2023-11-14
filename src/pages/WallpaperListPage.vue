@@ -46,7 +46,7 @@
       v-show="iconData.category"
       :style="{ display: iconData.category ? 'block' : 'none' }"
     >
-      <WallpaperCard v-bind="{ data }" @setMetadata="handleMetadata"/>
+      <WallpaperCard v-bind="{ data }" @setMetadata="handleMetadata" />
 
       <div class="listSqaure q-ml-xl">
         <SelectedIcon v-bind="{ data }" />
@@ -97,7 +97,7 @@ const iconData = ref({
   icons: [],
 });
 
-const metadata = ref({})
+const metadata = ref({});
 const animateElement = () => {
   data.value.animated = true;
 
@@ -155,7 +155,7 @@ const handleCategory = async (emitValue) => {
 
 const handleMetadata = (emitValue) => {
   metadata.value = emitValue;
-}
+};
 
 const showListA = async (category) => {
   const icons = await s3Client.getListOfBucket(category);
@@ -245,13 +245,23 @@ const downloadImage = async () => {
     base64.replace(/^data:image\/\w+;base64,/, ""),
     "base64"
   );
-  const uniqueKey = generateUniqueKey(data.value.selectedIcons, metadata.value.backgroundNum, metadata.value.pattern)
-  const tempMetadata = generateMetadata(data.value.selectedIcons, metadata.value.backgroundNum, metadata.value.pattern, uniqueKey)
-
+  const uniqueKey = generateUniqueKey(
+    data.value.selectedIcons,
+    metadata.value.backgroundNum,
+    metadata.value.pattern
+  );
+  const tempMetadata = generateMetadata(
+    data.value.selectedIcons,
+    metadata.value.backgroundNum,
+    metadata.value.pattern,
+    uniqueKey
+  );
+  const rawData = sessionStorage.getItem("wallet");
+  const sender = rawData.replace(/^__q_strn\|/, "");
   const dataToSend = {
-  image: imageBuffer.toString('base64'),
-  data: tempMetadata,
-};
+    image: imageBuffer.toString("base64"),
+    data: { metadata: tempMetadata, sender },
+  };
   // Create NFT metadata to IPFS using Lambda function
   try {
     // This mehtod has problem to attache file to lambda function check this out!
@@ -261,7 +271,7 @@ const downloadImage = async () => {
         method: "POST",
         body: JSON.stringify(dataToSend),
         headers: {
-            "Content-Type": "application/json", // Set the content type to JSON
+          "Content-Type": "application/json", // Set the content type to JSON
         },
       }
     );
@@ -272,7 +282,6 @@ const downloadImage = async () => {
       console.error("Error sending data to Lambda:", response.statusText);
     }
   } catch (e) {
-    console.log("실패");
     console.log(e);
   }
 
