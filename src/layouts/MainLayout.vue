@@ -14,8 +14,8 @@
         </div>
 
         <q-space />
-        <q-btn class="connected" v-if="data.isConnected">
-          {{ shortenWalletAddress(walletAddress) }}
+        <q-btn class="connected" v-if="data?.isConnected">
+          {{ shortenWalletAddress(data?.walletAddress) }}
           <q-menu transition-show="scale" transition-hide="scale">
             <q-list style="min-width: 100px">
               <q-item clickable v-close-popup>
@@ -46,8 +46,10 @@
 
 <script setup>
 import { ref, watch, onMounted } from "vue";
-import { connectWallet } from "../lib/wallet/connectHandler";
+import { connectWallet, switchNetwork } from "../lib/wallet/connectHandler";
 import { SessionStorage } from "quasar";
+import showNotify from "src/utils/notify";
+
 const data = ref({
   isConnected: false,
   walletAddress: "",
@@ -57,7 +59,8 @@ watch(
   () => data.value.isConnected,
   (newValue) => {
     if (newValue) {
-      trackAccount(data.value.walletAddress);
+      console.log("trigger", newValue);
+      trackAccount();
     }
   }
 );
@@ -68,6 +71,7 @@ onMounted(() => {
     data.value.isConnected = true;
     data.value.walletAddress = storedAddress;
   }
+  trackNetwork();
 });
 
 function shortenWalletAddress() {
@@ -79,26 +83,40 @@ function shortenWalletAddress() {
 }
 
 async function connect() {
+  const chainId = await window.ethereum.request({ method: "eth_chainId" });
+  await switchNetwork(chainId);
   const account = await connectWallet();
   if (account) {
     data.value.isConnected = true;
     data.value.walletAddress = account;
   }
 }
+
 function disconnect() {
   SessionStorage.clear();
   data.value.isConnected = false;
   data.value.walletAddress = "";
 }
 
-function trackAccount(account) {
+function trackAccount() {
   window.ethereum.on("accountsChanged", async (accounts) => {
     if (accounts.length === 0) {
       // MetaMask is locked or the user has not connected any accounts.
       data.value.isConnected = false;
       data.value.walletAddress = "";
-    } else if (accounts[0] !== account) {
+      SessionStorage.clear();
+    } else {
       data.value.walletAddress = accounts[0];
+      SessionStorage.set("wallet", accounts[0]);
+    }
+  });
+}
+
+function trackNetwork() {
+  window.ethereum.on("chainChanged", async (chainId) => {
+    if (parseInt(chainId) !== 137 && parseInt(chainId) !== 80001) {
+      disconnect();
+      showNotify("rejectSwitchChain");
     }
   });
 }
