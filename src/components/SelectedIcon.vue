@@ -3,13 +3,15 @@
     v-if="data.selectedIcons.length > 0"
     class="selectedIconBox row justify-between no-wrap"
   >
-    <div
+    <q-intersection
       class="selectedIcon flex flex-center"
       v-for="(icon, index) in data.selectedIcons"
       :key="index"
+      transition="rotate"
+      transition-duration="300"
     >
       <img :src="icon" style="width: 92px; height: 92px" />
-    </div>
+    </q-intersection>
   </div>
   <div v-else class="selectedIconBox row justify-between no-wrap">
     <div class="selectedIcon" v-for="n in 3" :key="n" />

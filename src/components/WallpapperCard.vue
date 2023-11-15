@@ -1,6 +1,11 @@
 <template>
   <div class="createSquare q-mr-xl">
-    <div class="square" v-if="shouldRenderImages">
+    <q-intersection
+      class="square"
+      v-if="shouldRenderImages"
+      transition="fade"
+      transition-duration="1000"
+    >
       <img
         v-for="index in data.length[data.pattern][0]"
         :key="index"
@@ -27,8 +32,13 @@
           }`
         "
       />
-    </div>
-    <div class="square" v-else></div>
+    </q-intersection>
+    <q-intersection
+      class="square"
+      v-else
+      transition="fade"
+      transition-duration="1000"
+    ></q-intersection>
   </div>
 </template>
 
@@ -47,7 +57,7 @@ const data = ref({
 const props = defineProps({
   data: Object,
 });
-const emit = defineEmits(["setMetadata"])
+const emit = defineEmits(["setMetadata"]);
 const emitMetadata = (value) => {
   emit("setMetadata", value);
 };

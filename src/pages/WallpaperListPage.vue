@@ -44,7 +44,7 @@
     <q-page
       class="create q-pa-xl flex-center row no-wrap"
       v-show="iconData.category"
-      :style="{ display: iconData.category ? 'block' : 'none' }"
+      :style="iconData.category ? {} : { display: 'none' }"
     >
       <WallpaperCard v-bind="{ data }" @setMetadata="handleMetadata" />
 
@@ -56,6 +56,7 @@
             icon="img:/src/assets/back.png"
             size="25px"
             padding="none"
+            :disable="buttonDisabled"
             @click="initIconData"
           ></q-btn>
           <q-btn
@@ -63,6 +64,7 @@
             outline
             text-color="primary"
             label="RANDOM"
+            :disable="buttonDisabled"
             @click="createRandomWallpapper"
           />
           <q-btn
@@ -70,6 +72,7 @@
             outline
             text-color="primary"
             label="CREATE"
+            :disable="buttonDisabled"
             @click="downloadImage"
           />
         </div>
@@ -96,6 +99,8 @@ const iconData = ref({
   category: "",
   icons: [],
 });
+
+const buttonDisabled = ref(false);
 
 const metadata = ref({});
 const animateElement = () => {
@@ -176,21 +181,29 @@ const initIconData = () => {
 };
 
 const createRandomWallpapper = () => {
-  const randomNumbers = [];
-  const tempArray = [];
-  // Generate 3 random numbers
-  while (randomNumbers.length < 3) {
-    const randomIndex =
-      Math.floor(Math.random() * (iconData.value.icons.length - 1)) + 1;
+  buttonDisabled.value = true;
+  //initialize selectedIcons
+  data.value.selectedIcons = [];
+  const generateTemp = () => {
+    const randomNumbers = [];
+    const tempArray = [];
+    // Generate 3 random numbers
+    while (randomNumbers.length < 3) {
+      const randomIndex =
+        Math.floor(Math.random() * (iconData.value.icons.length - 1)) + 1;
 
-    // Check if the random number is already in the array
-    if (!randomNumbers.includes(randomIndex)) {
-      randomNumbers.push(randomIndex);
-      tempArray.push(iconData.value.icons[randomIndex]);
+      // Check if the random number is already in the array
+      if (!randomNumbers.includes(randomIndex)) {
+        randomNumbers.push(randomIndex);
+        tempArray.push(iconData.value.icons[randomIndex]);
+      }
     }
     data.value.selectedIcons = tempArray;
-  }
-  animateElement();
+  };
+  setTimeout(generateTemp, 1000);
+  setTimeout(() => {
+    buttonDisabled.value = false;
+  }, 1500);
 };
 
 const getBase64FromUrl = async (url) => {
