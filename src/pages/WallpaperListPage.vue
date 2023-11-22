@@ -1,4 +1,5 @@
 <template>
+  <LoadingSpinner :loading="data.loading" :size="'3em'" />
   <q-page class="q-pa-xl flex-center column" v-if="!iconData.category">
     <div class="textHeader q-pb-xl">choose your concept !</div>
     <div class="row items-center">
@@ -47,7 +48,6 @@
       :style="iconData.category ? {} : { display: 'none' }"
     >
       <WallpaperCard v-bind="{ data }" @setMetadata="handleMetadata" />
-
       <div class="listSqaure q-ml-xl">
         <SelectedIcon v-bind="{ data }" />
         <ListIcon v-bind="{ iconData }" />
@@ -86,6 +86,7 @@ import WallpaperListCard from "src/components/WallpaperListCard.vue";
 import WallpaperCard from "src/components/WallpapperCard.vue";
 import ListIcon from "src/components/ListIcon.vue";
 import SelectedIcon from "src/components/SelectedIcon.vue";
+import LoadingSpinner from "src/components/LoadingSpinner.vue";
 import s3Client from "@api/callS3";
 import html2canvas from "html2canvas";
 import { Buffer } from "buffer";
@@ -94,6 +95,7 @@ import { generateMetadata, generateUniqueKey } from "src/lib/generator";
 const data = ref({
   animated: false,
   selectedIcons: [],
+  loading: false,
 });
 const iconData = ref({
   category: "",
@@ -181,6 +183,7 @@ const initIconData = () => {
 };
 
 const createRandomWallpapper = () => {
+  data.value.loading = true;
   buttonDisabled.value = true;
   //initialize selectedIcons
   data.value.selectedIcons = [];
@@ -203,6 +206,7 @@ const createRandomWallpapper = () => {
   setTimeout(generateTemp, 1000);
   setTimeout(() => {
     buttonDisabled.value = false;
+    data.value.loading = false;
   }, 1500);
 };
 
@@ -224,6 +228,8 @@ const getBase64FromUrl = async (url) => {
 };
 
 const downloadImage = async () => {
+  //loading state
+  data.value.loading = true;
   const html = document.querySelector(".square");
   const container = document.createElement("div");
 
@@ -296,6 +302,8 @@ const downloadImage = async () => {
     }
   } catch (e) {
     console.log(e);
+  } finally {
+    data.value.loading = false;
   }
 
   // Download Wallppaper image
