@@ -73,7 +73,12 @@
             text-color="primary"
             label="CREATE"
             :disable="buttonDisabled"
-            @click="downloadImage"
+            @click="openConfirmModal"
+          />
+          <ConfirmModal
+            :isOpen="data.confirmModal"
+            @confirmed="mintNFTHandle"
+            @cancelMint="confirmModalHandle"
           />
         </div>
       </div>
@@ -86,16 +91,24 @@ import WallpaperListCard from "src/components/WallpaperListCard.vue";
 import WallpaperCard from "src/components/WallpapperCard.vue";
 import ListIcon from "src/components/ListIcon.vue";
 import SelectedIcon from "src/components/SelectedIcon.vue";
-import LoadingSpinner from "src/components/LoadingSpinner.vue";
+import LoadingSpinner from "src/components/modals/LoadingSpinner.vue";
+import ConfirmModal from "src/components/modals/MintConfirm.vue";
 import s3Client from "@api/callS3";
-import html2canvas from "html2canvas";
+
 import { Buffer } from "buffer";
 import { ref } from "vue";
 import { generateMetadata, generateUniqueKey } from "src/lib/generator";
+import showNotify from "src/utils/notify";
+import {
+  getAddressFromSessionStorage,
+  createWallpapperImage,
+} from "src/lib/wallpapperHandler";
+
 const data = ref({
   animated: false,
   selectedIcons: [],
   loading: false,
+  confirmModal: false,
 });
 const iconData = ref({
   category: "",
@@ -210,80 +223,32 @@ const createRandomWallpapper = () => {
   }, 1500);
 };
 
-const getBase64FromUrl = async (url) => {
-  const img = new Image();
-  img.crossOrigin = "anonymous";
-  img.src = `${url}?__v=${Date.now()}`;
-  return new Promise((resolve) => {
-    img.onload = function () {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      const base64String = canvas.toDataURL("image/png");
-      resolve(base64String);
-    };
-  });
-};
-
-const downloadImage = async () => {
-  //loading state
-  data.value.loading = true;
-  const html = document.querySelector(".square");
-  const container = document.createElement("div");
-
-  // Copy the attributes and styles from html to container
-  const computedStyles = getComputedStyle(html);
-  for (const prop of computedStyles) {
-    container.style[prop] = computedStyles[prop];
-  }
-  container.style.position = "fixed";
-  container.style.top = "-9999px";
-  container.style.left = "-9999px";
-  container.innerHTML = html.innerHTML;
-  container.className = html.className;
-  container.id = html.id;
-  container.style.height = "844px";
-  container.style.borderRadius = 0;
-  container.style.borderStyle = "none";
-  document.body.appendChild(container);
-
-  const canvas = await html2canvas(container, {
-    onclone: async (_, html) => {
-      const images = html.querySelectorAll("img");
-      for await (const img of images) {
-        if (img.src.includes("data:image")) continue;
-        img.src = await getBase64FromUrl(img.src);
-      }
-    },
-  });
-
-  const base64 = canvas.toDataURL("image/png");
-  const imageBuffer = Buffer.from(
-    base64.replace(/^data:image\/\w+;base64,/, ""),
-    "base64"
-  );
-  const uniqueKey = generateUniqueKey(
-    data.value.selectedIcons,
-    metadata.value.backgroundNum,
-    metadata.value.pattern
-  );
-  const tempMetadata = generateMetadata(
-    data.value.selectedIcons,
-    metadata.value.backgroundNum,
-    metadata.value.pattern,
-    uniqueKey
-  );
-  const rawData = sessionStorage.getItem("wallet");
-  const sender = rawData.replace(/^__q_strn\|/, "");
-  const dataToSend = {
-    image: imageBuffer.toString("base64"),
-    data: { metadata: tempMetadata, sender },
-  };
+const sendNftMetadata = async () => {
   // Create NFT metadata to IPFS using Lambda function
   try {
-    // This mehtod has problem to attache file to lambda function check this out!
+    data.value.loading = true;
+    const sender = getAddressFromSessionStorage();
+    const base64 = await createWallpapperImage();
+    const imageBuffer = Buffer.from(
+      base64.replace(/^data:image\/\w+;base64,/, ""),
+      "base64"
+    );
+    const uniqueKey = generateUniqueKey(
+      data.value.selectedIcons,
+      metadata.value.backgroundNum,
+      metadata.value.pattern
+    );
+    const tempMetadata = generateMetadata(
+      data.value.selectedIcons,
+      metadata.value.backgroundNum,
+      metadata.value.pattern,
+      uniqueKey
+    );
+    const dataToSend = {
+      image: imageBuffer.toString("base64"),
+      data: { metadata: tempMetadata, sender },
+    };
+    // Send reqeust to AWS lambda function
     const response = await fetch(
       "https://mv19zvsl5i.execute-api.ap-northeast-2.amazonaws.com/default/MyTestFunction",
       {
@@ -295,13 +260,18 @@ const downloadImage = async () => {
       }
     );
     if (response.ok) {
+      //response success
       const lambdaResponse = await response.json();
       console.log("Lambda Response:", lambdaResponse);
     } else {
-      console.error("Error sending data to Lambda:", response.statusText);
+      //response fail
+      const result = await response.json();
+      throw result.message.includes("taken")
+        ? new Error("duplicateUniqueKey")
+        : new Error("error");
     }
   } catch (e) {
-    console.log(e);
+    showNotify(e.message);
   } finally {
     data.value.loading = false;
   }
@@ -311,6 +281,27 @@ const downloadImage = async () => {
   // link.href = base64;
   // link.download = "square.png";
   // link.click();
+};
+
+const mintNFTHandle = async () => {
+  await sendNftMetadata();
+  data.value.confirmModal = false;
+};
+
+const confirmModalHandle = () => {
+  data.value.confirmModal = false;
+};
+
+const openConfirmModal = async () => {
+  try {
+    getAddressFromSessionStorage();
+    if (data.value.selectedIcons.length < 1)
+      throw new Error("wallpapperNotFound");
+
+    data.value.confirmModal = true;
+  } catch (e) {
+    showNotify(e.message);
+  }
 };
 </script>
 
