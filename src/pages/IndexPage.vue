@@ -63,7 +63,7 @@
 
 <style lang="scss" scoped>
 .main-text-1 {
-  font-family: "Impact";
+  font-family: "Impacted";
   font-style: normal;
   font-weight: 400;
   font-size: 130px;
@@ -77,7 +77,7 @@
 }
 
 .about {
-  font-family: "Impact";
+  font-family: "Impacted";
   font-style: normal;
   font-weight: 400;
   font-size: 80px;
@@ -85,6 +85,7 @@
   color: $primary;
 }
 .aboutContent {
+  font-family: "Courier New", Courier, monospace;
   font-weight: 400;
   font-size: 24px;
   line-height: 31px;

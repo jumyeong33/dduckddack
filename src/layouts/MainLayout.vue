@@ -59,7 +59,6 @@ watch(
   () => data.value.isConnected,
   (newValue) => {
     if (newValue) {
-      console.log("trigger", newValue);
       trackAccount();
     }
   }
@@ -138,7 +137,7 @@ function trackNetwork() {
   width: 131px;
   height: 29.62px;
 
-  font-family: "Impact";
+  font-family: "Impacted";
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
