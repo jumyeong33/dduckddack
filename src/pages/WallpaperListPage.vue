@@ -1,5 +1,5 @@
 <template>
-  <LoadingSpinner :loading="data.loading" :size="'3em'" />
+  <LoadingSpinner :loadingData="data.loadingModalData" />
   <q-page class="q-pa-xl flex-center column" v-if="!iconData.category">
     <div class="textHeader q-pb-xl">choose your concept !</div>
     <div class="row items-center">
@@ -76,7 +76,7 @@
             @click="openConfirmModal"
           />
           <ConfirmModal
-            :isOpen="data.confirmModal"
+            :confirmData="data.confirmModalData"
             @confirmed="mintNFTHandle"
             @cancelMint="confirmModalHandle"
           />
@@ -107,8 +107,14 @@ import {
 const data = ref({
   animated: false,
   selectedIcons: [],
-  loading: false,
-  confirmModal: false,
+  loadingModalData: {
+    show: false,
+    message: false,
+  },
+  confirmModalData: {
+    show: false,
+    currentAddress: "",
+  },
 });
 const iconData = ref({
   category: "",
@@ -196,7 +202,7 @@ const initIconData = () => {
 };
 
 const createRandomWallpapper = () => {
-  data.value.loading = true;
+  data.value.loadingModalData.show = true;
   buttonDisabled.value = true;
   //initialize selectedIcons
   data.value.selectedIcons = [];
@@ -219,14 +225,15 @@ const createRandomWallpapper = () => {
   setTimeout(generateTemp, 1000);
   setTimeout(() => {
     buttonDisabled.value = false;
-    data.value.loading = false;
+    data.value.loadingModalData.show = false;
   }, 1500);
 };
 
 const sendNftMetadata = async () => {
   // Create NFT metadata to IPFS using Lambda function
   try {
-    data.value.loading = true;
+    data.value.loadingModalData.show = true;
+    data.value.loadingModalData.message = true;
     const sender = getAddressFromSessionStorage();
     const base64 = await createWallpapperImage();
     const imageBuffer = Buffer.from(
@@ -273,7 +280,8 @@ const sendNftMetadata = async () => {
   } catch (e) {
     showNotify(e.message);
   } finally {
-    data.value.loading = false;
+    data.value.loadingModalData.show = false;
+    data.value.loadingModalData.message = false;
   }
 
   // Download Wallppaper image
@@ -285,20 +293,23 @@ const sendNftMetadata = async () => {
 
 const mintNFTHandle = async () => {
   await sendNftMetadata();
-  data.value.confirmModal = false;
+  data.value.confirmModalData.show = false;
+  data.value.confirmModalData.currentAddress = "";
 };
 
 const confirmModalHandle = () => {
-  data.value.confirmModal = false;
+  data.value.confirmModalData.show = false;
+  data.value.confirmModalData.currentAddress = "";
 };
 
 const openConfirmModal = async () => {
   try {
-    getAddressFromSessionStorage();
+    const sender = getAddressFromSessionStorage();
     if (data.value.selectedIcons.length < 1)
       throw new Error("wallpapperNotFound");
 
-    data.value.confirmModal = true;
+    data.value.confirmModalData.show = true;
+    data.value.confirmModalData.currentAddress = sender;
   } catch (e) {
     showNotify(e.message);
   }
