@@ -1,23 +1,21 @@
 <template>
-  <div class="q-pa-md q-gutter-sm">
-    <q-dialog v-model="internalConfirmData" persistent>
-      <q-card class="confirm-card">
-        <q-card-section class="items-center">
-          <div class="flex justify-center" style="padding: 7%">
-            <q-icon name="img:src/assets/dddd2.png" size="50px" />
-          </div>
+  <q-dialog v-model="internalConfirmData" persistent>
+    <q-card class="confirm-card">
+      <q-card-section class="items-center">
+        <div class="flex justify-center" style="padding: 7%">
+          <q-icon name="img:src/assets/dddd2.png" size="50px" />
+        </div>
+        <q-card-section align="center">
           <span
-            class="q-ml-sm"
             :style="{
               color: 'white',
               fontSize: 'large',
-              fontFamily: 'monospace',
             }"
-            >ARE YOU SURE TO MINT THE WALLPAPPER?</span
+            >ARE YOU SURE <br />YOU WANT TO MINT ?</span
           >
-          <br />
+
+          <div style="margin-top: 1%"></div>
           <span
-            class="q-ml-sm"
             :style="{
               color: 'white',
               fontSize: 'small',
@@ -25,25 +23,26 @@
             }"
           >
             Wallet Address:
+            <br />
             <span style="font-weight: bold">
               {{ props.confirmData.currentAddress }}
             </span>
           </span>
         </q-card-section>
+      </q-card-section>
 
-        <q-card-actions align="right">
-          <q-btn
-            flat
-            label="Cancel"
-            color="primary"
-            v-close-popup
-            @click="initPopupState"
-          />
-          <q-btn flat label="Confirm" color="yellow" @click="mintNFT" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-  </div>
+      <q-card-actions align="right">
+        <q-btn
+          flat
+          label="Cancel"
+          color="primary"
+          v-close-popup
+          @click="initPopupState"
+        />
+        <q-btn flat label="Confirm" color="yellow" @click="mintNFT" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script setup>
