@@ -17,7 +17,11 @@ const alretMapping = {
 
   error: { message: "Something went wrong.. Try again!", position: "center" },
 
-  success: { message: "CREATEAD!", position: "center" },
+  success: {
+    message: "CREATEAD!",
+    position: "center",
+    icon: "img:src/assets/dddd.png",
+  },
 
   loading: { message: "LOADING..", position: "center" },
 
@@ -68,5 +72,10 @@ export default function showNotify(state) {
       textColor: "black",
       ...alretMapping["error"],
     });
-  Notify.create({ color: "primary", textColor: "black", ...options });
+  Notify.create({
+    color: "primary",
+    textColor: "black",
+    ...options,
+    classes: state === "success" ? ["success-font"] : [],
+  });
 }

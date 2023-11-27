@@ -269,7 +269,7 @@ const sendNftMetadata = async () => {
     if (response.ok) {
       //response success
       const lambdaResponse = await response.json();
-      console.log("Lambda Response:", lambdaResponse);
+      return lambdaResponse;
     } else {
       //response fail
       const result = await response.json();
@@ -292,9 +292,10 @@ const sendNftMetadata = async () => {
 };
 
 const mintNFTHandle = async () => {
-  await sendNftMetadata();
+  const result = await sendNftMetadata();
   data.value.confirmModalData.show = false;
   data.value.confirmModalData.currentAddress = "";
+  if (result.ok) showNotify("success");
 };
 
 const confirmModalHandle = () => {
