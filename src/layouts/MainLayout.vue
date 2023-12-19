@@ -1,7 +1,10 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar class="bg-black text-primary row items-center my-tool">
+      <q-toolbar
+        class="bg-black text-primary row items-center my-tool"
+        v-if="$q.screen.gt.sm"
+      >
         <div class="row items-center">
           <div class="row items-center col logo">
             <img src="~assets/logo.png" style="width: 200px; height: 26.64px" />
@@ -37,6 +40,75 @@
           Connect Wallet
         </q-btn>
       </q-toolbar>
+      <q-toolbar v-else class="bg-black text-primary row items-center q-pa-md">
+        <q-toolbar-title>
+          <router-link to="/" class="row items-center">
+            <img
+              src="~assets/logo.png"
+              style="width: 200px; height: 26.64px" /></router-link
+        ></q-toolbar-title>
+        <q-btn flat @click="openDrawer" round dense icon="menu" />
+        <q-drawer
+          side="right"
+          v-model="rightDrawerOpen"
+          show-if-above
+          class="bg-grey-8"
+        >
+          <q-scroll-area class="fit">
+            <q-list padding class="menu-list">
+              <q-item active clickable v-ripple to="/create" exact>
+                <q-item-section avatar>
+                  <q-icon name="star" />
+                </q-item-section>
+
+                <q-item-section> Create </q-item-section>
+              </q-item>
+
+              <q-item clickable v-ripple v-if="data?.isConnected">
+                <q-item-section avatar>
+                  <q-icon name="person" />
+                </q-item-section>
+
+                <q-item-section> My Page </q-item-section>
+              </q-item>
+
+              <q-item
+                clickable
+                v-ripple
+                v-if="data?.isConnected"
+                @click="disconnect"
+              >
+                <q-item-section avatar>
+                  <q-icon name="logout" />
+                </q-item-section>
+
+                <q-item-section> disconnect </q-item-section>
+              </q-item>
+            </q-list>
+          </q-scroll-area>
+          <div
+            class="absolute-bottom bg-black"
+            :class="{
+              'q-py-xl': !data.isConnected,
+              'q-py-md': data.isConnected,
+            }"
+          >
+            <div class="flex items-center justify-center">
+              <q-btn
+                class="btn-connect-mobile text-white"
+                @click="connect"
+                padding="none"
+                v-if="!data.isConnected"
+              >
+                Connect
+              </q-btn>
+              <div class="connected" v-else>
+                {{ shortenWalletAddress(data?.walletAddress) }}
+              </div>
+            </div>
+          </div>
+        </q-drawer>
+      </q-toolbar>
     </q-header>
     <q-page-container>
       <router-view />
@@ -50,6 +122,7 @@ import { connectWallet, switchNetwork } from "../lib/wallet/connectHandler";
 import { SessionStorage } from "quasar";
 import showNotify from "src/utils/notify";
 
+const rightDrawerOpen = ref(false);
 const data = ref({
   isConnected: false,
   walletAddress: "",
@@ -72,6 +145,10 @@ onMounted(() => {
   }
   trackNetwork();
 });
+
+function openDrawer() {
+  rightDrawerOpen.value = !rightDrawerOpen.value;
+}
 
 function shortenWalletAddress() {
   const address = data.value.walletAddress;
@@ -133,6 +210,12 @@ function trackNetwork() {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 60px;
 }
+.btn-connect-mobile {
+  width: 50%;
+  font-size: 20px;
+  background: $primary;
+  border-radius: 60px;
+}
 .logo-child {
   width: 131px;
   height: 29.62px;
@@ -165,9 +248,9 @@ function trackNetwork() {
   padding-left: 100px;
   padding-right: 100px;
 }
-::v-deep .q-btn__content {
-  padding-bottom: 5px;
-}
+// ::v-deep .q-btn__content {
+//   padding-bottom: 5px;
+// }
 
 .connected {
   font-family: "Courier New", Courier, monospace;
