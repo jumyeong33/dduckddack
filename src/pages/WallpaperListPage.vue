@@ -2,7 +2,7 @@
   <LoadingSpinner :loadingData="data.loadingModalData" />
   <q-page class="q-pa-xl flex-center column" v-if="!iconData.category">
     <div class="textHeader q-pb-xl">choose your concept !</div>
-    <div class="row items-center">
+    <div class="row no-wrap items-center">
       <q-btn
         class="arrow-btn q-mr-xl"
         icon="arrow_circle_left"
