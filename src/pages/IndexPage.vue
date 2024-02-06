@@ -12,7 +12,10 @@
     <p class="main-text-2 text-white">PHONE WALLPAPER</p>
 
     <div class="flex-center flex" style="margin-top: 300px">
-      <div class="row items-center">
+      <div
+        class="row items-center"
+        style="white-space: nowrap; display: inline-block"
+      >
         <img
           src="~assets/dddd.png"
           style="
@@ -21,6 +24,7 @@
             position: relative;
             top: -8px;
             margin-right: 11px;
+            vertical-align: middle;
           "
         />
         <p class="about">ABOUT</p>
@@ -74,6 +78,7 @@
 .main-text-2 {
   font-size: 83px;
   line-height: 0px;
+  white-space: nowrap;
 }
 
 .about {
@@ -83,6 +88,8 @@
   font-size: 80px;
   line-height: 98px;
   color: $primary;
+  display: inline-block;
+  vertical-align: middle;
 }
 .aboutContent {
   font-family: "Courier New", Courier, monospace;
