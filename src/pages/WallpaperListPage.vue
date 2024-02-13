@@ -1,10 +1,14 @@
 <template>
   <LoadingSpinner :loadingData="data.loadingModalData" />
   <q-page class="q-pa-xl flex-center column" v-if="!iconData.category">
-    <div class="textHeader q-pb-xl">choose your concept !</div>
-    <div class="row no-wrap items-center">
+    <div :class="$q.screen.xs ? 'textHeader q-pb-md' : 'textHeader q-pb-xl'">
+      choose your concept !
+    </div>
+    <div
+      :class="$q.screen.xs ? 'column items-center' : 'row no-wrap items-center'"
+    >
       <q-btn
-        class="arrow-btn q-mr-xl"
+        :class="$q.screen.xs ? 'arrow-btn' : 'arrow-btn q-mr-xl'"
         icon="arrow_circle_left"
         color="primary"
         size="30px"
@@ -13,24 +17,44 @@
         round
         @click="carouselLeftLogic"
       />
-      <transition appear class="animated fadeIn slower">
-        <div class="cardList row justify-between">
-          <WallpaperListCard
-            v-for="(wallpapper, index) in refWallpapperList"
-            :key="index"
-            :class="{
-              disabled: index !== 1,
-              animated: data.animated,
-              flipInY: data.animated,
-            }"
-            v-bind="{ ...wallpapper, index }"
-            :style="{ animationDelay: `${index * 100}ms` }"
-            @setCategory="handleCategory"
-          />
-        </div>
-      </transition>
+      <template v-if="$q.screen.gt.xs">
+        <transition appear class="animated fadeIn slower">
+          <div class="cardList row justify-between">
+            <WallpaperListCard
+              v-for="(wallpapper, index) in refWallpapperList"
+              :key="index"
+              :class="{
+                disabled: index !== 1,
+                animated: data.animated,
+                flipInY: data.animated,
+              }"
+              v-bind="{ ...wallpapper, index }"
+              :style="{ animationDelay: `${index * 100}ms` }"
+              @setCategory="handleCategory"
+            />
+          </div>
+        </transition>
+      </template>
+      <template v-else>
+        <transition appear class="animated fadeIn slower">
+          <div class="justify-center">
+            <WallpaperListCard
+              v-if="refWallpapperList.length > 1"
+              :key="index"
+              :class="{
+                animated: data.animated,
+                flipInY: data.animated,
+              }"
+              v-bind="{ ...refWallpapperList[1], index: 1 }"
+              :style="{ animationDelay: `${index * 100}ms` }"
+              @setCategory="handleCategory"
+            />
+          </div>
+        </transition>
+      </template>
+
       <q-btn
-        class="arrow-btn q-ml-xl"
+        :class="$q.screen.xs ? 'arrow-btn' : 'arrow-btn q-ml-xl'"
         icon="arrow_circle_right"
         color="primary"
         size="30px"
@@ -323,6 +347,7 @@ const openConfirmModal = async () => {
   font-weight: 400;
   font-size: 36px;
   line-height: 60px;
+  text-align: center;
 }
 .cardList {
   width: 800px;
