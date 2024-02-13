@@ -69,8 +69,4 @@ function hoverOut() {
   border: 2px;
   border-radius: 60px;
 }
-
-::v-deep .q-btn__content {
-  padding-bottom: 8px;
-}
 </style>
