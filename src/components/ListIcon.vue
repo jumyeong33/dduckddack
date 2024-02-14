@@ -1,5 +1,5 @@
 <template>
-  <div class="listIcon">
+  <div class="listIcon" v-if="!$q.screen.lt.sm">
     <q-scroll-area
       style="height: 100%"
       :thumb-style="thumbStyle"
