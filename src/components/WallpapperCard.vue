@@ -1,5 +1,5 @@
 <template>
-  <div class="createSquare q-mr-xl">
+  <div :class="$q.screen.gt.sm ? 'createSquare q-mr-xl' : 'createSquare'">
     <q-intersection
       class="square"
       v-if="shouldRenderImages"
@@ -101,9 +101,9 @@ function randomBg() {
 <style lang="scss" scoped>
 .square {
   border: 3px solid $primary;
+  background: black;
   height: 675px;
   width: 392px;
-  background: black;
   border-radius: 20px;
   position: relative;
   overflow: hidden;

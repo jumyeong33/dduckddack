@@ -67,12 +67,18 @@
   </q-page>
   <transition appear class="animated fadeIn slower">
     <q-page
-      class="create q-pa-xl flex-center row no-wrap"
+      :class="
+        $q.screen.gt.sm
+          ? 'create q-pa-xl flex-center row no-wrap'
+          : 'create q-pa-xl items-center column'
+      "
       v-show="iconData.category"
       :style="iconData.category ? {} : { display: 'none' }"
     >
       <WallpaperCard v-bind="{ data }" @setMetadata="handleMetadata" />
-      <div class="listSqaure q-ml-xl">
+      <div
+        :class="$q.screen.gt.sm ? 'listSquare q-ml-xl' : 'listSquare q-mt-xl'"
+      >
         <SelectedIcon v-bind="{ data }" />
         <ListIcon v-bind="{ iconData }" />
         <div class="btns row justify-between no-wrap">
@@ -362,7 +368,7 @@ const openConfirmModal = async () => {
   margin-right: 8%;
 }
 
-.listSqaure {
+.listSquare {
   width: 480px;
 }
 

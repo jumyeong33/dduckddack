@@ -16,6 +16,7 @@
 
           <div style="margin-top: 1%"></div>
           <span
+            class="wallet-address"
             :style="{
               color: 'white',
               fontSize: 'small',
@@ -72,5 +73,10 @@ function initPopupState() {
 .confirm-card {
   background-color: black;
   border: 3px solid $primary;
+}
+
+.wallet-address {
+  white-space: pre-wrap; /* Allow wrapping */
+  word-break: break-all; /* Break long words */
 }
 </style>
