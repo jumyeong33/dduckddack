@@ -2,12 +2,9 @@
   <q-page
     class="q-pa-xl flex flex-center column no-wrap"
     style="padding-top: 153px"
-  >
-    <img
-      alt="Quasar logo"
-      src="~assets/dddd-back.png"
-      style="width: 906px; height: 431px"
-    />
+    ><div class="responsive-container">
+      <img src="~assets/dddd-back.png" class="responsive-img" />
+    </div>
     <p class="main-text-1">DDUCKDDACK</p>
     <p class="main-text-2 text-white">PHONE WALLPAPER</p>
 
@@ -66,17 +63,35 @@
 <script setup></script>
 
 <style lang="scss" scoped>
+.responsive-container {
+  max-width: 906px;
+  width: 100%;
+  margin: 0 auto;
+}
+.responsive-text-container {
+  max-width: 906px;
+  width: 100%;
+  margin: 0 auto;
+}
+@media screen and (max-width: 906px) {
+  .responsive-container {
+    max-width: 100%;
+  }
+}
+.responsive-img {
+  width: 100%;
+  height: auto;
+}
 .main-text-1 {
   font-family: "Impacted";
   font-style: normal;
   font-weight: 400;
-  font-size: 130px;
-  line-height: 140px;
+  font-size: 10vw;
   margin-bottom: 0px;
   color: $primary;
 }
 .main-text-2 {
-  font-size: 83px;
+  font-size: 6.3vw;
   line-height: 0px;
   white-space: nowrap;
 }

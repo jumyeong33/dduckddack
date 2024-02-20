@@ -70,7 +70,7 @@
       :class="
         $q.screen.gt.sm
           ? 'create q-pa-xl flex-center row no-wrap'
-          : 'create q-pa-xl items-center column'
+          : 'create q-pa-xl items-center column no-wrap'
       "
       v-show="iconData.category"
       :style="iconData.category ? {} : { display: 'none' }"
@@ -81,7 +81,13 @@
       >
         <SelectedIcon v-bind="{ data }" />
         <ListIcon v-bind="{ iconData }" />
-        <div class="btns row justify-between no-wrap">
+        <div
+          :class="
+            $q.screen.lt.sm
+              ? 'btns_height column items-center justify-between'
+              : 'btns justify-between row no-wrap'
+          "
+        >
           <q-btn
             icon="img:/src/assets/back.png"
             size="25px"
@@ -362,14 +368,12 @@ const openConfirmModal = async () => {
   width: 30px;
   height: 30px;
 }
-
+// .listSquare {
+//   width: 480px;
+// }
 .create {
   margin-left: 8%;
   margin-right: 8%;
-}
-
-.listSquare {
-  width: 480px;
 }
 
 .dduckBtn {
@@ -381,6 +385,10 @@ const openConfirmModal = async () => {
 }
 .btns {
   padding-top: 44px;
+}
+.btns_height {
+  padding-top: 20px;
+  height: 200px;
 }
 
 .modify-bg {

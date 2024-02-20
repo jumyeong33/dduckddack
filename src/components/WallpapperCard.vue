@@ -1,5 +1,5 @@
 <template>
-  <div :class="$q.screen.gt.sm ? 'createSquare q-mr-xl' : 'createSquare'">
+  <div :class="$q.screen.gt.sm ? 'q-mr-xl' : ''">
     <q-intersection
       class="square"
       v-if="shouldRenderImages"
