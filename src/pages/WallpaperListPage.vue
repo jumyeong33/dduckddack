@@ -305,6 +305,10 @@ const sendNftMetadata = async () => {
     if (response.ok) {
       //response success
       const lambdaResponse = await response.json();
+      const link = document.createElement("a");
+      link.href = base64;
+      link.download = uniqueKey + ".png";
+      link.click();
       return lambdaResponse;
     } else {
       //response fail
@@ -321,10 +325,6 @@ const sendNftMetadata = async () => {
   }
 
   // Download Wallppaper image
-  // const link = document.createElement("a");
-  // link.href = base64;
-  // link.download = "square.png";
-  // link.click();
 };
 
 const mintNFTHandle = async () => {
