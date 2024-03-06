@@ -89,7 +89,7 @@
           "
         >
           <q-btn
-            icon="img:/src/assets/back.png"
+            icon="img:back.png"
             size="25px"
             padding="none"
             :disable="buttonDisabled"
@@ -170,10 +170,10 @@ const animateElement = () => {
 };
 
 const wallpapperList = [
-  { category: "face", value: "/src/assets/loading.png", number: 0 },
-  { category: "man", value: "/src/assets/wall_back.png", number: 1 },
-  { category: "icons-1", value: "/src/assets/wall_back.png", number: 2 },
-  { category: "wpp4", value: "/src/assets/loading.png", number: 3 },
+  { category: "face", value: "loading.png", number: 0 },
+  { category: "man", value: "wall_back.png", number: 1 },
+  { category: "icons-1", value: "wall_back.png", number: 2 },
+  { category: "wpp4", value: "loading.png", number: 3 },
 ];
 
 const dataWallpaperList = () => {

@@ -3,7 +3,7 @@
     class="q-pa-xl flex flex-center column no-wrap"
     style="padding-top: 153px"
     ><div class="responsive-container">
-      <img src="~assets/dddd-back.png" class="responsive-img" />
+      <img src="dddd-back.png" class="responsive-img" />
     </div>
     <p class="main-text-1">DDUCKDDACK</p>
     <p class="main-text-2 text-white">PHONE WALLPAPER</p>
@@ -14,7 +14,7 @@
         style="white-space: nowrap; display: inline-block"
       >
         <img
-          src="~assets/dddd.png"
+          src="dddd.png"
           style="
             width: 66px;
             height: 71px px;

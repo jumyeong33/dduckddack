@@ -20,7 +20,7 @@ const alretMapping = {
   success: {
     message: "CREATEAD!",
     position: "center",
-    icon: "img:src/assets/dddd.png",
+    icon: "img:dddd.png",
   },
 
   loading: { message: "LOADING..", position: "center" },

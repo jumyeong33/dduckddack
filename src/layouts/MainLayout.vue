@@ -7,10 +7,7 @@
       >
         <div class="row items-center">
           <div class="row items-center col logo">
-            <img
-              src="/src/assets/logo.png"
-              style="width: 200px; height: 26.64px"
-            />
+            <img src="logo.png" style="width: 200px; height: 26.64px" />
           </div>
 
           <q-tabs shrink narrow-indicator style="margin-bottom: 8px">
@@ -47,7 +44,7 @@
         <q-toolbar-title>
           <router-link to="/" class="row items-center">
             <img
-              src="/src/assets/logo.png"
+              src="logo.png"
               style="width: 200px; height: 26.64px" /></router-link
         ></q-toolbar-title>
         <q-btn flat @click="openDrawer" round dense icon="menu" />
