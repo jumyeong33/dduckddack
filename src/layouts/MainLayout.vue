@@ -7,7 +7,10 @@
       >
         <div class="row items-center">
           <div class="row items-center col logo">
-            <img src="~assets/logo.png" style="width: 200px; height: 26.64px" />
+            <img
+              src="/src/assets/logo.png"
+              style="width: 200px; height: 26.64px"
+            />
           </div>
 
           <q-tabs shrink narrow-indicator style="margin-bottom: 8px">
@@ -21,7 +24,7 @@
           {{ shortenWalletAddress(data?.walletAddress) }}
           <q-menu transition-show="scale" transition-hide="scale">
             <q-list style="min-width: 100px">
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup to="/mypage">
                 <q-item-section>My page</q-item-section>
               </q-item>
               <q-separator />
@@ -44,7 +47,7 @@
         <q-toolbar-title>
           <router-link to="/" class="row items-center">
             <img
-              src="~assets/logo.png"
+              src="/src/assets/logo.png"
               style="width: 200px; height: 26.64px" /></router-link
         ></q-toolbar-title>
         <q-btn flat @click="openDrawer" round dense icon="menu" />
@@ -64,7 +67,13 @@
                 <q-item-section> Create </q-item-section>
               </q-item>
 
-              <q-item clickable v-ripple v-if="data?.isConnected">
+              <q-item
+                clickable
+                v-ripple
+                v-if="data?.isConnected"
+                to="/mypage"
+                exact
+              >
                 <q-item-section avatar>
                   <q-icon name="person" />
                 </q-item-section>
