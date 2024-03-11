@@ -63,6 +63,13 @@ const alretMapping = {
     color: "yellow",
     icon: "announcement",
   },
+  wallpaperNotSet: {
+    message: "Please check wallpapper appearance before creating",
+    caption: "Wallpapper does not ready to create",
+    position: "center",
+    color: "yellow",
+    icon: "announcement",
+  },
 };
 export default function showNotify(state) {
   const options = alretMapping[state];

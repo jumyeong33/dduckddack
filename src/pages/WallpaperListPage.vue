@@ -344,7 +344,13 @@ const openConfirmModal = async () => {
     const sender = getAddressFromSessionStorage();
     if (data.value.selectedIcons.length < 1)
       throw new Error("wallpapperNotFound");
-
+    const html = document.querySelector(".square");
+    const images = html.querySelectorAll("img");
+    if (images.length === 0) {
+      const ele = document.getElementById("wallpapperSquare");
+      ele.scrollIntoView();
+      throw new Error("wallpaperNotSet");
+    }
     data.value.confirmModalData.show = true;
     data.value.confirmModalData.currentAddress = sender;
   } catch (e) {

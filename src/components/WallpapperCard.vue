@@ -1,10 +1,11 @@
 <template>
-  <div :class="$q.screen.gt.sm ? 'q-mr-xl' : ''">
+  <div id="wallpapperSquare" :class="$q.screen.gt.sm ? 'q-mr-xl' : ''">
     <q-intersection
       class="square"
       v-if="shouldRenderImages"
       transition="fade"
       transition-duration="1000"
+      once
     >
       <img
         v-for="index in data.length[data.pattern][0]"
