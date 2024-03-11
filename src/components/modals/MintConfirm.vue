@@ -3,7 +3,7 @@
     <q-card class="confirm-card">
       <q-card-section class="items-center">
         <div class="flex justify-center" style="padding: 7%">
-          <q-icon name="img:src/assets/dddd2.png" size="50px" />
+          <img src="dddd2.png" style="width: 50px; height: 50px" />
         </div>
         <q-card-section align="center">
           <span
