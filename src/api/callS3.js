@@ -7,15 +7,21 @@ class ClientS3 {
     this.#client = new S3Client({
       region: "ap-northeast-2",
       credentials: {
-        accessKeyId: process.env.S3_ACCESS_KEY,
-        secretAccessKey: process.env.S3_SECRET_KEY,
+        accessKeyId: import.meta.env.VITE_S3_ACCESS_KEY,
+        secretAccessKey: import.meta.env.VITE_S3_SECRET_KEY,
       },
     });
   }
 
   async getListOfBucket(prefix) {
-    console.log("process.env.S3_ACCESS_KEY", process.env.S3_ACCESS_KEY);
-    console.log("process.env.S3_SECRET_KEY", process.env.S3_SECRET_KEY);
+    console.log(
+      "process.env.S3_ACCESS_KEY",
+      import.meta.env.VITE_S3_ACCESS_KEY
+    );
+    console.log(
+      "process.env.S3_SECRET_KEY",
+      import.meta.env.VITE_S3_SECRET_KEY
+    );
     console.log("process.env.DEV", process.env.DEV);
     const command = new ListObjectsCommand({
       Bucket: "dduckddack-test",
