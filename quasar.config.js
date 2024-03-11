@@ -10,7 +10,6 @@
 
 const { configure } = require("quasar/wrappers");
 const path = require("path");
-require("dotenv").config();
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -54,10 +53,7 @@ module.exports = configure(function (/* ctx */) {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node16",
       },
-      env: {
-        S3_ACCESS_KEY: process.env.S3_ACCESS_KEY,
-        S3_SECRET_KEY: process.env.S3_SECRET_KEY,
-      },
+      env: require("dotenv").config().parsed,
       alias: {
         "@api": path.join(__dirname, "./src/api"),
       },
