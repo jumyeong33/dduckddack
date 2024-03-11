@@ -14,6 +14,7 @@ class ClientS3 {
   }
 
   async getListOfBucket(prefix) {
+    console.log(process.env);
     console.log("process.env.S3_ACCESS_KEY", process.env.S3_ACCESS_KEY);
     console.log("process.env.S3_SECRET_KEY", process.env.S3_SECRET_KEY);
     const command = new ListObjectsCommand({
