@@ -21,14 +21,14 @@
         <transition appear class="animated fadeIn slower">
           <div class="cardList row justify-between">
             <WallpaperListCard
-              v-for="(wallpapper, index) in refWallpapperList"
+              v-for="(wallpaper, index) in refWallpaperList"
               :key="index"
               :class="{
                 disabled: index !== 1,
                 animated: data.animated,
                 flipInY: data.animated,
               }"
-              v-bind="{ ...wallpapper, index }"
+              v-bind="{ ...wallpaper, index }"
               :style="{ animationDelay: `${index * 100}ms` }"
               @setCategory="handleCategory"
             />
@@ -39,13 +39,13 @@
         <transition appear class="animated fadeIn slower">
           <div class="justify-center">
             <WallpaperListCard
-              v-if="refWallpapperList.length > 1"
+              v-if="refWallpaperList.length > 1"
               :key="index"
               :class="{
                 animated: data.animated,
                 flipInY: data.animated,
               }"
-              v-bind="{ ...refWallpapperList[1], index: 1 }"
+              v-bind="{ ...refWallpaperList[1], index: 1 }"
               :style="{ animationDelay: `${index * 100}ms` }"
               @setCategory="handleCategory"
             />
@@ -101,7 +101,7 @@
             text-color="primary"
             label="RANDOM"
             :disable="buttonDisabled"
-            @click="createRandomWallpapper"
+            @click="createRandomWallpaper"
           />
           <q-btn
             class="dduckBtn"
@@ -124,7 +124,7 @@
 
 <script setup>
 import WallpaperListCard from "src/components/WallpaperListCard.vue";
-import WallpaperCard from "src/components/WallpapperCard.vue";
+import WallpaperCard from "src/components/WallpaperCard.vue";
 import ListIcon from "src/components/ListIcon.vue";
 import SelectedIcon from "src/components/SelectedIcon.vue";
 import LoadingSpinner from "src/components/modals/LoadingSpinner.vue";
@@ -137,8 +137,8 @@ import { generateMetadata, generateUniqueKey } from "src/lib/generator";
 import showNotify from "src/utils/notify";
 import {
   getAddressFromSessionStorage,
-  createWallpapperImage,
-} from "src/lib/wallpapperHandler";
+  createWallpaperImage,
+} from "src/lib/wallpaperHandler";
 
 const data = ref({
   animated: false,
@@ -169,7 +169,7 @@ const animateElement = () => {
   }, 1000); // Adjust the duration as needed
 };
 
-const wallpapperList = [
+const wallpaperList = [
   { category: "face", value: "loading.png", number: 0 },
   { category: "man", value: "wall_back.png", number: 1 },
   { category: "icons-1", value: "wall_back.png", number: 2 },
@@ -177,35 +177,35 @@ const wallpapperList = [
 ];
 
 const dataWallpaperList = () => {
-  const data = [...wallpapperList];
+  const data = [...wallpaperList];
   data.splice(3);
   return data;
 };
 
-const refWallpapperList = ref(dataWallpaperList());
+const refWallpaperList = ref(dataWallpaperList());
 
 const carouselRightLogic = () => {
   if (data.value.animated === true) return;
-  const refLastValueNumber = refWallpapperList.value[2].number;
-  if (wallpapperList[refLastValueNumber + 1]) {
-    refWallpapperList.value.push(wallpapperList[refLastValueNumber + 1]);
-    refWallpapperList.value.splice(0, 1);
+  const refLastValueNumber = refWallpaperList.value[2].number;
+  if (wallpaperList[refLastValueNumber + 1]) {
+    refWallpaperList.value.push(wallpaperList[refLastValueNumber + 1]);
+    refWallpaperList.value.splice(0, 1);
   } else {
-    refWallpapperList.value.splice(0, 1);
-    refWallpapperList.value.push(wallpapperList[0]);
+    refWallpaperList.value.splice(0, 1);
+    refWallpaperList.value.push(wallpaperList[0]);
   }
   animateElement();
 };
 
 const carouselLeftLogic = () => {
   if (data.value.animated === true) return;
-  const refFirstValueNumber = refWallpapperList.value[0].number;
+  const refFirstValueNumber = refWallpaperList.value[0].number;
   if (refFirstValueNumber === 0) {
-    refWallpapperList.value.unshift(wallpapperList[wallpapperList.length - 1]);
-    refWallpapperList.value.splice(3);
+    refWallpaperList.value.unshift(wallpaperList[wallpaperList.length - 1]);
+    refWallpaperList.value.splice(3);
   } else {
-    refWallpapperList.value.unshift(wallpapperList[refFirstValueNumber - 1]);
-    refWallpapperList.value.splice(3);
+    refWallpaperList.value.unshift(wallpaperList[refFirstValueNumber - 1]);
+    refWallpaperList.value.splice(3);
   }
   animateElement();
 };
@@ -237,7 +237,7 @@ const initIconData = () => {
   metadata.value = {};
 };
 
-const createRandomWallpapper = () => {
+const createRandomWallpaper = () => {
   data.value.loadingModalData.show = true;
   buttonDisabled.value = true;
   //initialize selectedIcons
@@ -271,7 +271,7 @@ const sendNftMetadata = async () => {
     data.value.loadingModalData.show = true;
     data.value.loadingModalData.message = true;
     const sender = getAddressFromSessionStorage();
-    const base64 = await createWallpapperImage();
+    const base64 = await createWallpaperImage();
     const imageBuffer = Buffer.from(
       base64.replace(/^data:image\/\w+;base64,/, ""),
       "base64"
@@ -343,11 +343,11 @@ const openConfirmModal = async () => {
   try {
     const sender = getAddressFromSessionStorage();
     if (data.value.selectedIcons.length < 1)
-      throw new Error("wallpapperNotFound");
+      throw new Error("wallpaperNotFound");
     const html = document.querySelector(".square");
     const images = html.querySelectorAll("img");
     if (images.length === 0) {
-      const ele = document.getElementById("wallpapperSquare");
+      const ele = document.getElementById("wallpaperSquare");
       ele.scrollIntoView();
       throw new Error("wallpaperNotSet");
     }

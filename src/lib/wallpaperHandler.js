@@ -25,7 +25,7 @@ const getBase64FromUrl = async (url) => {
   });
 };
 
-export async function createWallpapperImage() {
+export async function createWallpaperImage() {
   const html = document.querySelector(".square");
   const container = document.createElement("div");
 

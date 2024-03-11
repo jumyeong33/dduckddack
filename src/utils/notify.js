@@ -49,23 +49,23 @@ const alretMapping = {
     icon: "announcement",
   },
 
-  wallpapperNotFound: {
+  wallpaperNotFound: {
     message: "Please click random button before creating",
-    caption: "Wallpapper does not ready to create",
+    caption: "Wallpaper does not ready to create",
     position: "center",
     color: "yellow",
     icon: "announcement",
   },
   duplicateUniqueKey: {
-    message: "Please select other wallpapper..",
-    caption: "The wallpapper is already taken",
+    message: "Please select other wallpaper..",
+    caption: "The wallpaper is already taken",
     position: "center",
     color: "yellow",
     icon: "announcement",
   },
   wallpaperNotSet: {
-    message: "Please check wallpapper appearance before creating",
-    caption: "Wallpapper does not ready to create",
+    message: "Please check wallpaper appearance before creating",
+    caption: "Wallpaper does not ready to create",
     position: "center",
     color: "yellow",
     icon: "announcement",
