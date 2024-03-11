@@ -14,15 +14,6 @@ class ClientS3 {
   }
 
   async getListOfBucket(prefix) {
-    console.log(
-      "process.env.S3_ACCESS_KEY",
-      import.meta.env.VITE_S3_ACCESS_KEY
-    );
-    console.log(
-      "process.env.S3_SECRET_KEY",
-      import.meta.env.VITE_S3_SECRET_KEY
-    );
-    console.log("process.env.DEV", process.env.DEV);
     const command = new ListObjectsCommand({
       Bucket: "dduckddack-test",
       Prefix: prefix,
