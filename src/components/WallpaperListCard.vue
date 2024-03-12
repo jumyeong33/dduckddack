@@ -11,7 +11,7 @@
         size="28px"
         to="/create"
         :text-color="data.textColor"
-        :disable="index !== 1"
+        :disable="state !== true && index === 1"
         @click="emitCatagory(category)"
         @mouseover="hoverdIn"
         @mouseleave="hoverOut"
@@ -28,6 +28,7 @@ defineProps({
   value: String,
   number: Number,
   index: Number,
+  state: Boolean,
 });
 const emit = defineEmits(["setCategory"]);
 const data = ref({ textColor: "primary", outline: true });

@@ -170,10 +170,9 @@ const animateElement = () => {
 };
 
 const wallpaperList = [
-  { category: "face", value: "loading.png", number: 0 },
-  { category: "man", value: "wall_back.png", number: 1 },
-  { category: "icons-1", value: "wall_back.png", number: 2 },
-  { category: "wpp4", value: "loading.png", number: 3 },
+  { category: "wpp1", value: "loading.png", number: 0, state: false },
+  { category: "icons-1", value: "wall_back.png", number: 1, state: true },
+  { category: "wpp3", value: "loading.png", number: 2, state: false },
 ];
 
 const dataWallpaperList = () => {
