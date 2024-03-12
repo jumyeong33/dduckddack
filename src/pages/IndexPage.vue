@@ -26,36 +26,10 @@
         />
         <p class="about">ABOUT</p>
       </div>
-      <div class="aboutContent text-center">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        <br />Voluptas, eaadipisci! Quo consequatur ullam deleniti nulla porro
-        accusantium?
-        <br />
-        Excepturi voluptatibus itaque quod. <br />Delectus eveniet illo nulla,
-        asperiores commodi repudiandae consequatur? Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. <br />Voluptas, eaadipisci! Quo
-        consequatur ullam deleniti nulla porro accusantium?
-        <br />
-        <br />
-        Excepturi voluptatibus itaque quod.Delectus eveniet illo nulla,
-        asperiores commodi repudiandae consequatur? Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. <br />Voluptas, eaadipisci! Quo
-        consequatur ullam deleniti nulla porro accusantium?
-        <br />
-        Excepturi voluptatibus itaque quod. <br />Delectus eveniet illo nulla,
-        asperiores commodi repudiandae consequatur? Lorem ipsum dolor sit amet
-        consectetur adipisicing elit.Voluptas, eaadipisci! Quo consequatur ullam
-        deleniti nulla porro accusantium?
-        <br />
-        Excepturi voluptatibus itaque quod. <br />Delectus eveniet illo nulla,
-        asperiores commodi repudiandae consequatur? Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. <br />Voluptas, eaadipisci! Quo
-        consequatur ullam deleniti nulla porro accusantium?
-        <br />
-        <br />
-        Excepturi voluptatibus itaque quod. <br />Delectus eveniet illo nulla,
-        asperiores commodi repudiandae consequatur?
-      </div>
+    </div>
+    <div class="aboutContent text-center">
+      <br />
+      TEST VERSION ON MUMBAI
     </div>
   </q-page>
 </template>
@@ -83,7 +57,7 @@
   height: auto;
 }
 .main-text-1 {
-  font-family: "Impacted";
+  font-family: "Impact";
   font-style: normal;
   font-weight: 400;
   font-size: 10vw;
@@ -97,7 +71,7 @@
 }
 
 .about {
-  font-family: "Impacted";
+  font-family: "Impact";
   font-style: normal;
   font-weight: 400;
   font-size: 80px;
@@ -112,5 +86,6 @@
   font-size: 24px;
   line-height: 31px;
   color: white;
+  display: inline;
 }
 </style>
