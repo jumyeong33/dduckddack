@@ -1,12 +1,15 @@
 <template>
   <LoadingSpinner :loadingData="data.loadingModalData" />
-  <q-page class="q-pa-xl flex-center column" v-if="!iconData.category">
+  <q-page
+    :class="
+      $q.screen.xs ? 'q-py-xl flex-center column' : 'q-pa-xl flex-center column'
+    "
+    v-if="!iconData.category"
+  >
     <div :class="$q.screen.xs ? 'textHeader q-pb-md' : 'textHeader q-pb-xl'">
       choose your concept !
     </div>
-    <div
-      :class="$q.screen.xs ? 'column items-center' : 'row no-wrap items-center'"
-    >
+    <div class="row no-wrap items-center">
       <q-btn
         :class="$q.screen.xs ? 'arrow-btn' : 'arrow-btn q-mr-xl'"
         icon="arrow_circle_left"
