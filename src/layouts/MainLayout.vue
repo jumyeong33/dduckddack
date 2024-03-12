@@ -124,7 +124,12 @@
 
 <script setup>
 import { ref, watch, onMounted } from "vue";
-import { connectWallet, switchNetwork } from "../lib/wallet/connectHandler";
+import {
+  connectWallet,
+  switchNetwork,
+  isInstallMetamask,
+  isMobile,
+} from "../lib/wallet/connectHandler";
 import { SessionStorage } from "quasar";
 import showNotify from "src/utils/notify";
 
@@ -165,6 +170,11 @@ function shortenWalletAddress() {
 }
 
 async function connect() {
+  if (isMobile()) {
+    return (window.location = "https://metamask.app.link/dapp/dduckddack.org");
+  }
+  if (isInstallMetamask()) return showNotify("install");
+
   const chainId = await window.ethereum.request({ method: "eth_chainId" });
   await switchNetwork(chainId);
   const account = await connectWallet();
@@ -195,6 +205,7 @@ function trackAccount() {
 }
 
 function trackNetwork() {
+  if (window.ethereum === undefined) return;
   window.ethereum.on("chainChanged", async (chainId) => {
     if (parseInt(chainId) !== 137 && parseInt(chainId) !== 80001) {
       disconnect();

@@ -6,11 +6,15 @@ function errorMsgHandler(e, state) {
   throw showNotify("error");
 }
 
-function isInstallMetamask() {
+export function isInstallMetamask() {
   if (typeof window.ethereum !== "undefined") {
     return false;
   }
   return true;
+}
+
+export function isMobile() {
+  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 }
 
 async function signData(account) {
@@ -42,7 +46,6 @@ export async function switchNetwork(chainId) {
 
 export async function connectWallet() {
   try {
-    if (isInstallMetamask()) showNotify("install");
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
