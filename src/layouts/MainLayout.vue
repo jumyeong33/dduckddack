@@ -170,8 +170,11 @@ function shortenWalletAddress() {
 }
 
 async function connect() {
-  if (isMobile()) {
-    return (window.location = "https://metamask.app.link/dapp/dduckddack.org");
+  if (isMobile() && !window.ethereum) {
+    return window.open(
+      "https://metamask.app.link/dapp/dduckddack.org",
+      "_self"
+    );
   }
   if (isInstallMetamask()) return showNotify("install");
 
