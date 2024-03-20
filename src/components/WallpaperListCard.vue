@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/require-toggle-inside-transition -->
 <template>
   <transition class="slower">
     <div class="wallpaperCard flex items-end justify-center">
@@ -11,7 +12,7 @@
         size="28px"
         to="/create"
         :text-color="data.textColor"
-        :disable="state !== true && index === 1"
+        :disable="state !== true || index !== 1"
         @click="emitCatagory(category)"
         @mouseover="hoverdIn"
         @mouseleave="hoverOut"

@@ -251,15 +251,15 @@ function trackNetwork() {
 .logo {
   padding-right: 30px;
 }
-::v-deep .q-tab__label {
+::v-deep(.q-tab__label) {
   font-size: 24px;
 }
-::v-deep .q-tab {
+::v-deep(.q-tab) {
   padding-left: 23px;
   padding-right: 23px;
 }
 
-::v-deep .q-tab__indicator {
+::v-deep(.q-tab__indicator) {
   height: 4px;
   border-radius: 2px;
 }
@@ -268,9 +268,6 @@ function trackNetwork() {
   padding-left: 100px;
   padding-right: 100px;
 }
-// ::v-deep .q-btn__content {
-//   padding-bottom: 5px;
-// }
 
 .connected {
   font-family: "Courier New", Courier, monospace;

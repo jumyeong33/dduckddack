@@ -46,6 +46,7 @@
 <script setup>
 import { ref, watch, nextTick } from "vue";
 
+// eslint-disable-next-line vue/no-dupe-keys
 const data = ref({
   pattern: "",
   backgroundNum: "",

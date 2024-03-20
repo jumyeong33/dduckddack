@@ -28,8 +28,20 @@
       </div>
     </div>
     <div class="aboutContent text-center">
+      <p>
+        Create Your Wallpaper NFT as
+        <span style="color: greenyellow">Free</span>
+      </p>
+      <br />
+      <br />
+      <br />
+      <br />
       <br />
       TEST VERSION ON MUMBAI
+      <br />
+      <p style="font-size: 16px; opacity: 0.5">
+        ※ Currently WallPaper Size support Only 392 X 675
+      </p>
     </div>
   </q-page>
 </template>

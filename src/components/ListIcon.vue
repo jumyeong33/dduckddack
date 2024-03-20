@@ -1,10 +1,6 @@
 <template>
   <div class="listIcon" v-if="!$q.screen.lt.sm">
-    <q-scroll-area
-      style="height: 100%"
-      :thumb-style="thumbStyle"
-      :bar-style="barStyle"
-    >
+    <q-scroll-area style="height: 100%" :thumb-style="thumbStyle">
       <div
         class="icons row justify-start q-col-gutter-sm"
         style="margin-left: 1rem; margin-top: 1rem"

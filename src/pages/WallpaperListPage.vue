@@ -27,7 +27,6 @@
               v-for="(wallpaper, index) in refWallpaperList"
               :key="index"
               :class="{
-                disabled: index !== 1,
                 animated: data.animated,
                 flipInY: data.animated,
               }"
