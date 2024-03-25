@@ -2,7 +2,7 @@ import showNotify from "src/utils/notify";
 import { SessionStorage } from "quasar";
 
 function errorMsgHandler(e, state) {
-  if (e.code === 4001) throw showNotify(state);
+  if (e.code === 4001 || e.code === 4902) throw showNotify(state);
   throw showNotify("error");
 }
 
@@ -32,7 +32,7 @@ async function signData(account) {
 
 export async function switchNetwork(chainId) {
   try {
-    if (parseInt(chainId) !== 137 && parseInt(chainId) !== 80001) {
+    if (parseInt(chainId) !== 80001) {
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
         //Mumbai
@@ -40,6 +40,24 @@ export async function switchNetwork(chainId) {
       });
     }
   } catch (e) {
+    if (e.code === 4902) {
+      window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [
+          {
+            chainId: "0x13881",
+            chainName: "Mumbai",
+            rpcUrls: ["https://polygon-testnet.public.blastapi.io"],
+            nativeCurrency: {
+              name: "MATIC",
+              symbol: "MATIC",
+              decimals: 18,
+            },
+            blockExplorerUrls: ["https://mumbai.polygonscan.com"],
+          },
+        ],
+      });
+    }
     errorMsgHandler(e, "rejectSwitchChain");
   }
 }
