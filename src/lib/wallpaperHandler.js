@@ -42,7 +42,7 @@ export async function createWallpaperImage() {
   container.id = html.id;
   container.style.height = "844px";
   container.style.borderRadius = 0;
-  container.style.borderStyle = "none";
+  container.style.borderWidth = 0;
   document.body.appendChild(container);
 
   const canvas = await html2canvas(container, {
