@@ -37,13 +37,16 @@ export async function createWallpaperImage() {
   container.style.height = "844px";
   container.style.borderRadius = 0;
   container.style.borderWidth = 0;
-  container.style.borderStyle = "none !important";
+  container.style.borderStyle = "none";
   container.style.position = "fixed";
+  container.style.borderInlineStart = "none";
+  container.style.borderInlineEnd = "none";
   container.style.top = "-9999px";
   container.style.left = "-9999px";
   container.innerHTML = html.innerHTML;
   container.className = html.className;
   container.id = html.id;
+
   document.body.appendChild(container);
 
   const canvas = await html2canvas(container, {
