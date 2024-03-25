@@ -42,13 +42,11 @@
           <div class="justify-center">
             <WallpaperListCard
               v-if="refWallpaperList.length > 1"
-              :key="index"
               :class="{
                 animated: data.animated,
                 flipInY: data.animated,
               }"
               v-bind="{ ...refWallpaperList[1], index: 1 }"
-              :style="{ animationDelay: `${index * 100}ms` }"
               @setCategory="handleCategory"
             />
           </div>
