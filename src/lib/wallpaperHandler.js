@@ -34,15 +34,16 @@ export async function createWallpaperImage() {
   for (const prop of computedStyles) {
     container.style[prop] = computedStyles[prop];
   }
+  container.style.height = "844px";
+  container.style.borderRadius = 0;
+  container.style.borderWidth = 0;
+  container.style.borderStyle = "none !important";
   container.style.position = "fixed";
   container.style.top = "-9999px";
   container.style.left = "-9999px";
   container.innerHTML = html.innerHTML;
   container.className = html.className;
   container.id = html.id;
-  container.style.height = "844px";
-  container.style.borderRadius = 0;
-  container.style.borderWidth = 0;
   document.body.appendChild(container);
 
   const canvas = await html2canvas(container, {
