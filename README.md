@@ -9,7 +9,9 @@
 </div>
 Dduckddack create your Mobile wallpaper NFT.
 
-This project was developed to enhance user access to NFTs. To facilitate this, the administrator covers the gas fees, allowing users to simply create a wallet and mint an NFT.
+This project was developed to enhance user access to NFTs.
+
+To facilitate this, the administrator covers the gas fees, allowing users to simply create a wallet and mint an NFT.
 
 ### Notice
 
@@ -30,6 +32,8 @@ Currently, deployed at **MUMBAI** network.
 
 Desgin pattern and Emoji is supported by web. you can make random wallpaper. ( Each wallpaper is unique)
 
+---
+
 ## Install the dependencies
 
 ```bash
@@ -48,7 +52,7 @@ Before use this project, there are several requierments.
 
 - Smart contract (ERC-721) [dddd_V1](https://github.com/jumyeong33/dddd_contract)
 - Images at Aws s3
-- Storage Metadata && Image to save (In this project : Infura)
+- Storage to save Metadata && Image (In this project : Infura)
 - Crypto Wallet with some balance of Native token
 
 ### Minting flow
@@ -57,10 +61,10 @@ Create NFT metadata and Image, Minting flow run on Aws lambda.
 
 Reference on lambda_code diretory
 
-## **Version check**
+check **Version** before using lambda code
 
-<img src="https://img.shields.io/badge/Node-v18.18.0-blue?style=flat
-"> &nbsp; &nbsp; <img src="https://img.shields.io/badge/Web3-%5E1.9.0-blue?style=flat
+<img src="https://img.shields.io/badge/Node-v18.18.0-blue
+"> &nbsp; &nbsp; <img src="https://img.shields.io/badge/Web3-%5E1.9.0-blue
 ">
 
 ```javascript
