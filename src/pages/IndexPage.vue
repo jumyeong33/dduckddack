@@ -40,7 +40,7 @@
       TEST VERSION ON MUMBAI
       <br />
       <p style="font-size: 16px; opacity: 0.5">
-        ※ Currently WallPaper Size support Only 392 X 675
+        ※ Currently WallPaper Size support Only 392 X 844
       </p>
     </div>
   </q-page>
