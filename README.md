@@ -30,8 +30,7 @@ Currently, deployed at **MUMBAI** network.
 
 ### Mint your Mobile Wallpaper NFT
 
-<img src="https://github.com/jumyeong33/dduckddack/assets/57386602/dd6553d6-ea77-4c72-a2ef-744ba2dd0b90
-" width="500" height="250">
+<img src="https://github.com/jumyeong33/dduckddack/assets/57386602/cd999461-0628-4baa-9e5b-f9e3576ce157" width="500" height="250">
 
 Desgin pattern and Emoji is supported by web. you can make random wallpaper. ( Each wallpaper is unique)
 
