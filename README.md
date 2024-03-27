@@ -24,7 +24,7 @@ Currently, deployed at **MUMBAI** network.
 ## Tech Stack
 
 <img src="https://img.shields.io/badge/Vue-%234FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white"> <img src="https://img.shields.io/badge/Quasar-%23050A14?style=for-the-badge&logo=quasar&logoColor=white"> <img src="https://img.shields.io/badge/solidity-%23363636?style=for-the-badge&logo=solidity&logoColor=white"> <img src="https://img.shields.io/badge/Aws%20Lambda-%23FF9900?style=for-the-badge&logo=awslambda&logoColor=white
-">
+"><img src="https://img.shields.io/badge/Lambda-%23FF9900?style=for-the-badge&logo=awslambda&logoColor=white">
 
 ## What can you do?
 
