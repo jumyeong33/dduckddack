@@ -30,6 +30,9 @@ Currently, deployed at **MUMBAI** network.
 
 ### Mint your Mobile Wallpaper NFT
 
+<img src="https://github.com/jumyeong33/dduckddack/assets/57386602/dd6553d6-ea77-4c72-a2ef-744ba2dd0b90
+" width="500" height="250">
+
 Desgin pattern and Emoji is supported by web. you can make random wallpaper. ( Each wallpaper is unique)
 
 ---
@@ -61,11 +64,9 @@ Create NFT metadata and Image, Minting flow run on Aws lambda.
 
 Reference on lambda_code diretory
 
-check **Version** before using lambda code
+Check **Version** before using lambda code
 
-<img src="https://img.shields.io/badge/Node-v18.18.0-blue
-"> &nbsp; &nbsp; <img src="https://img.shields.io/badge/Web3-%5E1.9.0-blue
-">
+<img src="https://img.shields.io/badge/Node-v18.18.0-blue?style=for-the-badge"> &nbsp; &nbsp; <img src="https://img.shields.io/badge/Web3-%5E1.9.0-blue?style=for-the-badge">
 
 ```javascript
 //lambda_code/ipfsHandler.js
