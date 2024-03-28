@@ -52,7 +52,7 @@ npm run dev
 
 Before use this project, there are several requierments.
 
-- Smart contract (ERC-721) [dddd_V1](https://github.com/jumyeong33/dddd_contract)
+- Smart contract (ERC-721) [dddd_V1](https://github.com/jumyeong33/dddd_contract/tree/feature/no_pay)
 - Images at Aws s3
 - Storage to save Metadata && Image (In this project : Infura)
 - Crypto Wallet with some balance of Native token
