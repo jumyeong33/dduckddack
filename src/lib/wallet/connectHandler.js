@@ -32,11 +32,11 @@ async function signData(account) {
 
 export async function switchNetwork(chainId) {
   try {
-    if (parseInt(chainId) !== 80001) {
+    if (parseInt(chainId) !== 80002) {
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
         //Mumbai
-        params: [{ chainId: "0x13881" }],
+        params: [{ chainId: "0x13882" }],
       });
     }
   } catch (e) {
@@ -45,15 +45,15 @@ export async function switchNetwork(chainId) {
         method: "wallet_addEthereumChain",
         params: [
           {
-            chainId: "0x13881",
-            chainName: "Mumbai",
-            rpcUrls: ["https://polygon-testnet.public.blastapi.io"],
+            chainId: "0x13882",
+            chainName: "Amoy",
+            rpcUrls: ["https://rpc-amoy.polygon.technology"],
             nativeCurrency: {
               name: "MATIC",
               symbol: "MATIC",
               decimals: 18,
             },
-            blockExplorerUrls: ["https://mumbai.polygonscan.com"],
+            blockExplorerUrls: ["https://amoy.polygonscan.com/"],
           },
         ],
       });
